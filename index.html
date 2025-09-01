@@ -1,1 +1,1337 @@
+@keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naisargi Doshi | Business Analyst</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --primary-green: #2d5f3f;
+            --light-green: #4a8060;
+            --sage-green: #87a96b;
+            --mint: #a8d5ba;
+            --beige: #f5e6d3;
+            --light-beige: #faf6f0;
+            --cream: #fffef9;
+            --dark-brown: #3e2723;
+            --gray: #6b6b6b;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, #2d5f3f 0%, #87a96b 100%);
+            --beige-gradient: linear-gradient(135deg, #f5e6d3 0%, #faf6f0 100%);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--cream);
+            color: var(--dark-brown);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--beige);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-green);
+            border-radius: 5px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 50px;
+            padding: 0.5rem 2rem;
+            z-index: 1000;
+            box-shadow: 0 10px 40px rgba(45, 95, 63, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--dark-brown);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-green);
+        }
+
+        .nav-link.active {
+            color: var(--primary-green);
+        }
+
+        /* Hero Section - Split Design */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(to right, var(--light-beige) 50%, var(--primary-green) 50%);
+        }
+
+        .hero-container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding: 0 4rem;
+        }
+
+        .hero-left {
+            padding-right: 4rem;
+            animation: slideIn 1s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--dark-brown);
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .hero-title .highlight {
+            color: var(--primary-green);
+            position: relative;
+        }
+
+        .hero-title .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 15px;
+            background: var(--mint);
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--dark-brown);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-green);
+            color: var(--cream);
+            box-shadow: 0 10px 30px rgba(45, 95, 63, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(45, 95, 63, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary-green);
+            border: 2px solid var(--primary-green);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-green);
+            color: var(--cream);
+        }
+
+        .hero-right {
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--cream);
+            text-align: center;
+        }
+
+        .hero-image {
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(135deg, var(--beige) 0%, var(--mint) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--cream);
+        }
+
+        .stat-text {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* About Section - Witty Design */
+        .about {
+            padding: 6rem 2rem;
+            background: var(--light-beige);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: var(--mint);
+            color: var(--primary-green);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--dark-brown);
+            margin-bottom: 1rem;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-content {
+            background: var(--cream);
+            padding: 3rem;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(45, 95, 63, 0.1);
+        }
+
+        .about-content h3 {
+            font-size: 1.8rem;
+            color: var(--primary-green);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            color: var(--dark-brown);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .fun-fact {
+            background: var(--beige);
+            padding: 1.5rem;
+            border-radius: 20px;
+            margin-top: 2rem;
+            border-left: 4px solid var(--primary-green);
+        }
+
+        .fun-fact h4 {
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .about-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .metric-card {
+            background: var(--gradient);
+            color: var(--cream);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transform: rotate(-2deg);
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:nth-child(even) {
+            transform: rotate(2deg);
+        }
+
+        .metric-card:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        .metric-card i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Skills Section - Card Stack Design */
+        .skills {
+            padding: 6rem 2rem;
+            background: var(--cream);
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .skill-stack {
+            position: relative;
+            height: 250px;
+        }
+
+        .skill-card {
+            position: absolute;
+            width: 100%;
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(45, 95, 63, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .skill-card:nth-child(1) {
+            transform: translateY(0px);
+            z-index: 3;
+        }
+
+        .skill-card:nth-child(2) {
+            transform: translateY(10px);
+            z-index: 2;
+            opacity: 0.9;
+        }
+
+        .skill-card:nth-child(3) {
+            transform: translateY(20px);
+            z-index: 1;
+            opacity: 0.8;
+        }
+
+        .skill-stack:hover .skill-card:nth-child(1) {
+            transform: translateY(-20px);
+        }
+
+        .skill-stack:hover .skill-card:nth-child(2) {
+            transform: translateY(0px);
+        }
+
+        .skill-stack:hover .skill-card:nth-child(3) {
+            transform: translateY(20px);
+        }
+
+        .skill-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .skill-name {
+            font-size: 1.2rem;
+            color: var(--dark-brown);
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-list {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Dashboard Showcase Section */
+        .dashboards {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--light-beige) 0%, var(--beige) 100%);
+        }
+
+        .dashboard-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .dashboard-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(45, 95, 63, 0.15);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(45, 95, 63, 0.2);
+        }
+
+        .dashboard-preview {
+            height: 250px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-charts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding: 2rem;
+        }
+
+        .chart-bar {
+            width: 30px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px 5px 0 0;
+            animation: grow 2s ease-in-out infinite;
+        }
+
+        .chart-bar:nth-child(1) { height: 60%; animation-delay: 0s; }
+        .chart-bar:nth-child(2) { height: 80%; animation-delay: 0.2s; }
+        .chart-bar:nth-child(3) { height: 45%; animation-delay: 0.4s; }
+        .chart-bar:nth-child(4) { height: 90%; animation-delay: 0.6s; }
+        .chart-bar:nth-child(5) { height: 70%; animation-delay: 0.8s; }
+
+        @keyframes grow {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(1.2); }
+        }
+
+        .dashboard-info {
+            padding: 2rem;
+        }
+
+        .dashboard-title {
+            font-size: 1.3rem;
+            color: var(--dark-brown);
+            margin-bottom: 0.5rem;
+        }
+
+        .dashboard-tech {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-badge {
+            background: var(--beige);
+            color: var(--primary-green);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+        }
+
+        .dashboard-impact {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .dashboard-metric {
+            display: inline-block;
+            color: var(--primary-green);
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        /* Experience Timeline - Minimal Design */
+        .experience {
+            padding: 6rem 2rem;
+            background: var(--cream);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            margin-top: 3rem;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--mint);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 90px;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 41px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            border: 4px solid var(--cream);
+            box-shadow: 0 0 0 2px var(--mint);
+        }
+
+        .timeline-content {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(45, 95, 63, 0.1);
+        }
+
+        .timeline-date {
+            color: var(--primary-green);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            color: var(--dark-brown);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-company {
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-highlight {
+            background: var(--beige);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+
+        .timeline-highlight i {
+            color: var(--primary-green);
+            margin-right: 0.5rem;
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 6rem 2rem;
+            background: var(--light-beige);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(45, 95, 63, 0.2);
+        }
+
+        .project-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--beige);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            color: var(--dark-brown);
+            margin-bottom: 1rem;
+        }
+
+        .project-description {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-results {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .result {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+
+        /* Education Section */
+        .education {
+            padding: 6rem 2rem;
+            background: var(--cream);
+        }
+
+        .education-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .edu-card {
+            background: linear-gradient(135deg, var(--mint) 0%, var(--sage-green) 100%);
+            color: var(--white);
+            padding: 2.5rem;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .edu-card::after {
+            content: '🎓';
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            font-size: 5rem;
+            opacity: 0.1;
+        }
+
+        .edu-degree {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .edu-school {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            opacity: 0.95;
+        }
+
+        .edu-date {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 2rem;
+            background: var(--primary-green);
+            color: var(--cream);
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            color: var(--cream);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-brown);
+            color: var(--cream);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                padding: 2rem;
+            }
+
+            .hero {
+                background: var(--light-beige);
+            }
+
+            .hero-right {
+                background: var(--primary-green);
+                margin: 2rem -2rem -2rem -2rem;
+                border-radius: 30px 30px 0 0;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .about-grid,
+            .education-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-line {
+                left: 20px;
+            }
+
+            .timeline-item {
+                padding-left: 60px;
+            }
+
+            .timeline-dot {
+                left: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#home" class="nav-link active">Home</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#skills" class="nav-link">Skills</a>
+            <a href="#dashboards" class="nav-link">Dashboards</a>
+            <a href="#experience" class="nav-link">Experience</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-left">
+                <h1 class="hero-title">
+                    I'm <span class="highlight">Naisargi</span>,<br>
+                    Your Data Whisperer
+                </h1>
+                <p class="hero-subtitle">Business Analyst & Dashboard Virtuoso</p>
+                <p class="hero-description">
+                    I transform chaotic spreadsheets into beautiful insights and make databases 
+                    sing harmonious SQL queries. Currently teaching AI how to think like a business analyst.
+                </p>
+                <div class="hero-cta">
+                    <a href="#contact" class="btn btn-primary">
+                        Let's Create Magic
+                    </a>
+                    <a href="#dashboards" class="btn btn-outline">
+                        See My Work
+                    </a>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="hero-image">
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">$500K+</div>
+                        <div class="stat-text">Saved</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">96%</div>
+                        <div class="stat-text">Faster Reports</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">500K+</div>
+                        <div class="stat-text">Data Points</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Get to Know Me</span>
+                <h2 class="section-title">The Story Behind the Spreadsheets</h2>
+            </div>
+            <div class="about-grid">
+                <div class="about-content">
+                    <h3>From Mumbai to Raleigh, One Query at a Time</h3>
+                    <p>
+                        <strong>Plot twist:</strong> I started as an Electronics Engineer who fell in love with data! 
+                        Now I'm that person who gets genuinely excited about pivot tables and thinks 
+                        in SQL joins. Currently pursuing my Masters at NC State while moonlighting as an 
+                        AI Apprentice Engineer (yes, I'm teaching robots to be as data-obsessed as I am).
+                    </p>
+                    <p>
+                        When I'm not turning coffee into dashboards, you'll find me crafting data stories that 
+                        actually make CFOs smile. My superpower? Making a 4-hour report run in 12 minutes 
+                        – because who has time to wait for insights?
+                    </p>
+                    <div class="fun-fact">
+                        <h4>🎯 Fun Fact</h4>
+                        <p>I once analyzed 500K+ transactions to find out why our pasta wasn't selling. 
+                        Turns out, data can solve anything – even carb-related mysteries!</p>
+                    </div>
+                </div>
+                <div class="about-metrics">
+                    <div class="metric-card">
+                        <div class="metric-value">2.5%</div>
+                        <div class="metric-label">Profitability Growth Delivered</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">18%</div>
+                        <div class="metric-label">Logistics Efficiency Boost</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">45+</div>
+                        <div class="metric-label">Product Launches Analyzed</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">3</div>
+                        <div class="metric-label">New Markets Conquered</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills" id="skills">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Technical Arsenal</span>
+                <h2 class="section-title">Tools I Wield Like a Pro</h2>
+            </div>
+            <div class="skills-container">
+                <div class="skill-stack">
+                    <div class="skill-card">
+                        <div class="skill-icon">
+                        </div>
+                        <div class="skill-name">Data & Analytics</div>
+                        <div class="skill-list">Python • SQL • Statistical Analysis</div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-name">More Analytics</div>
+                        <div class="skill-list">Pandas • NumPy • Data Viz</div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-name">Even More!</div>
+                        <div class="skill-list">Machine Learning • Predictive Models</div>
+                    </div>
+                </div>
+                <div class="skill-stack">
+                    <div class="skill-card">
+                        <div class="skill-icon">
+                        </div>
+                        <div class="skill-name">Cloud & BI</div>
+                        <div class="skill-list">AWS • Tableau • Power BI</div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-name">Cloud Services</div>
+                        <div class="skill-list">Redshift • S3 • QuickSight</div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-name">And More!</div>
+                        <div class="skill-list">Apache Airflow • AWS Glue</div>
+                    </div>
+                </div>
+                <div class="skill-stack">
+                    <div class="skill-card">
+                        <div class="skill-icon">
+                        </div>
+                        <div class="skill-name">Business Tools</div>
+                        <div class="skill-list">Salesforce • ServiceNow • Oracle</div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-name">Methodologies</div>
+                        <div class="skill-list">Agile • Scrum • Waterfall</div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-name">Expertise</div>
+                        <div class="skill-list">SDLC • Process Optimization</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Showcase Section -->
+    <section class="dashboards" id="dashboards">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Portfolio Showcase</span>
+                <h2 class="section-title">Dashboards That Tell Stories</h2>
+            </div>
+            <div class="dashboard-gallery">
+                <div class="dashboard-card">
+                    <div class="dashboard-preview">
+                        <div class="dashboard-charts">
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                        </div>
+                    </div>
+                    <div class="dashboard-info">
+                        <h3 class="dashboard-title">Supply Chain Analytics Dashboard</h3>
+                        <div class="dashboard-tech">
+                            <span class="tech-badge">Tableau</span>
+                            <span class="tech-badge">Python</span>
+                            <span class="tech-badge">AWS</span>
+                        </div>
+                        <p class="dashboard-impact">
+                            Real-time supplier compliance monitoring that identified $500K in potential savings
+                            through anomaly detection algorithms.
+                        </p>
+                        <span class="dashboard-metric">
+                            ↑ 96% faster reporting
+                        </span>
+                    </div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="dashboard-preview">
+                        <div class="dashboard-charts">
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                        </div>
+                    </div>
+                    <div class="dashboard-info">
+                        <h3 class="dashboard-title">Logistics Optimization Suite</h3>
+                        <div class="dashboard-tech">
+                            <span class="tech-badge">Power BI</span>
+                            <span class="tech-badge">SQL</span>
+                            <span class="tech-badge">Excel</span>
+                        </div>
+                        <p class="dashboard-impact">
+                            Interactive forecasting models that increased logistics efficiency by 18% 
+                            through optimized routing decisions.
+                        </p>
+                        <span class="dashboard-metric">
+                            ↑ 18% efficiency gain
+                        </span>
+                    </div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="dashboard-preview">
+                        <div class="dashboard-charts">
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                        </div>
+                    </div>
+                    <div class="dashboard-info">
+                        <h3 class="dashboard-title">E-Commerce Performance Tracker</h3>
+                        <div class="dashboard-tech">
+                            <span class="tech-badge">QuickSight</span>
+                            <span class="tech-badge">Redshift</span>
+                            <span class="tech-badge">Python</span>
+                        </div>
+                        <p class="dashboard-impact">
+                            Analyzed 500K+ transactions across 50+ product lines, enabling data-driven 
+                            pricing strategies for 45+ product launches.
+                        </p>
+                        <span class="dashboard-metric">
+                            ↑ 2.5% profitability growth
+                        </span>
+                    </div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="dashboard-preview">
+                        <div class="dashboard-charts">
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                            <div class="chart-bar"></div>
+                        </div>
+                    </div>
+                    <div class="dashboard-info">
+                        <h3 class="dashboard-title">Sales Pipeline CRM Dashboard</h3>
+                        <div class="dashboard-tech">
+                            <span class="tech-badge">Salesforce</span>
+                            <span class="tech-badge">Power BI</span>
+                            <span class="tech-badge">SQL</span>
+                        </div>
+                        <p class="dashboard-impact">
+                            Increased sales pipeline tracking efficiency by 35% through automated reporting 
+                            and real-time performance metrics.
+                        </p>
+                        <span class="dashboard-metric">
+                            ↑ 35% efficiency boost
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Timeline -->
+    <section class="experience" id="experience">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Career Journey</span>
+                <h2 class="section-title">Where I've Made Impact</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-line"></div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">August 2025 – Present</div>
+                        <h3 class="timeline-title">AI Apprentice Engineer</h3>
+                        <div class="timeline-company">Aperix LLC • Raleigh, NC</div>
+                        <div class="timeline-highlight">
+                            ★ Bridging business needs with AI development - teaching machines to think like analysts
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">August 2024 – December 2024</div>
+                        <h3 class="timeline-title">Business Analyst Intern</h3>
+                        <div class="timeline-company">Volvo Group • Raleigh, NC</div>
+                        <div class="timeline-highlight">
+                            ★ Saved $500K through anomaly detection • Made reports 96% faster
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">March 2024 – December 2024</div>
+                        <h3 class="timeline-title">Business Analyst</h3>
+                        <div class="timeline-company">Consult Your Community NC • Raleigh, NC</div>
+                        <div class="timeline-highlight">
+                            ★ Boosted sales tracking by 35% • Built executive dashboards that actually get used
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">January 2021 - August 2023</div>
+                        <h3 class="timeline-title">Business Analyst</h3>
+                        <div class="timeline-company">Urban Platter • Mumbai, India</div>
+                        <div class="timeline-highlight">
+                            ★ 2.5% profit growth • 5% market share capture • Conquered 3 new markets
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Academic Excellence</span>
+                <h2 class="section-title">Projects That Matter</h2>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">
+                    </div>
+                    <h3 class="project-title">Internationally, Yours</h3>
+                    <p class="project-description">
+                        Built a platform for international students with a $200K revenue potential. 
+                        Because navigating a new country shouldn't feel like solving a Rubik's cube blindfolded.
+                    </p>
+                    <div class="project-results">
+                        <span class="result">
+                            ✓ $200K Revenue
+                        </span>
+                        <span class="result">
+                            ✓ Under Budget
+                        </span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-icon">
+                    </div>
+                    <h3 class="project-title">Lighthouse Relocation</h3>
+                    <p class="project-description">
+                        Managed a $12M infrastructure project analysis that found 15% cost savings. 
+                        Turns out, you can teach an old lighthouse new tricks!
+                    </p>
+                    <div class="project-results">
+                        <span class="result">
+                            ✓ 15% Savings
+                        </span>
+                        <span class="result">
+                            ✓ 25% Faster
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="education" id="education">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Academic Background</span>
+                <h2 class="section-title">Where I Learned to Love Data</h2>
+            </div>
+            <div class="education-cards">
+                <div class="edu-card">
+                    <div class="edu-degree">Masters in Engineering Management</div>
+                    <div class="edu-school">North Carolina State University</div>
+                    <div class="edu-date">August 2023 - May 2025</div>
+                </div>
+                <div class="edu-card">
+                    <div class="edu-degree">B.Tech in Electronics Engineering</div>
+                    <div class="edu-school">Mumbai University</div>
+                    <div class="edu-date">August 2019 - June 2023</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-content">
+            <h2 class="contact-title">Let's Build Something Amazing</h2>
+            <p class="contact-subtitle">
+                Ready to turn your data chaos into clarity? I'm just a message away!
+            </p>
+            <div class="contact-links">
+                <a href="mailto:naisargidoshi16@gmail.com" class="contact-link">
+                    naisargidoshi16@gmail.com
+                </a>
+                <a href="tel:+19193456638" class="contact-link">
+                    +1 (919) 345-6638
+                </a>
+                <a href="https://linkedin.com/in/naisargidoshi16" class="contact-link" target="_blank">
+                    LinkedIn
+                </a>
+                <a href="#" class="contact-link">
+                    Raleigh, NC
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Naisargi Doshi • Turning Data Into Decisions • Open to Relocate</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Active nav on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'all 0.6s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
