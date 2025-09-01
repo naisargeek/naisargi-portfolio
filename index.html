@@ -7,7 +7,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Naisargi Doshi | Business Analyst</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -395,18 +394,21 @@
         .skill-card:nth-child(1) {
             transform: translateY(0px);
             z-index: 3;
+            animation: floatSubtle 3s ease-in-out infinite;
         }
 
         .skill-card:nth-child(2) {
             transform: translateY(10px);
             z-index: 2;
             opacity: 0.9;
+            animation: floatSubtle 3s ease-in-out infinite 0.5s;
         }
 
         .skill-card:nth-child(3) {
             transform: translateY(20px);
             z-index: 1;
             opacity: 0.8;
+            animation: floatSubtle 3s ease-in-out infinite 1s;
         }
 
         .skill-stack:hover .skill-card:nth-child(1) {
@@ -463,7 +465,13 @@
             box-shadow: 0 20px 60px rgba(45, 95, 63, 0.15);
             transition: all 0.3s ease;
             cursor: pointer;
+            animation: floatSubtle 5s ease-in-out infinite;
         }
+
+        .dashboard-card:nth-child(1) { animation-delay: 0s; }
+        .dashboard-card:nth-child(2) { animation-delay: 0.5s; }
+        .dashboard-card:nth-child(3) { animation-delay: 1s; }
+        .dashboard-card:nth-child(4) { animation-delay: 1.5s; }
 
         .dashboard-card:hover {
             transform: translateY(-10px);
@@ -642,7 +650,11 @@
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
+            animation: float 6s ease-in-out infinite;
         }
+
+        .project-card:nth-child(1) { animation-delay: 0s; }
+        .project-card:nth-child(2) { animation-delay: 1s; }
 
         .project-card::before {
             content: '';
@@ -718,12 +730,14 @@
         }
 
         .edu-card::after {
-            content: '🎓';
+            content: '';
             position: absolute;
             right: 20px;
             bottom: 20px;
-            font-size: 5rem;
-            opacity: 0.1;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+            border-radius: 50%;
         }
 
         .edu-degree {
@@ -800,37 +814,220 @@
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
+            /* Navigation */
+            nav {
+                top: 10px;
+                left: 10px;
+                right: 10px;
+                transform: none;
+                padding: 0.5rem;
+            }
+
             .nav-container {
                 flex-wrap: wrap;
                 justify-content: center;
+                gap: 0.5rem;
+            }
+
+            .nav-link {
+                font-size: 0.85rem;
+                padding: 0.3rem 0.6rem;
+            }
+
+            /* Hero */
+            .hero {
+                background: var(--light-beige);
+                padding-top: 80px;
             }
 
             .hero-container {
                 grid-template-columns: 1fr;
-                padding: 2rem;
+                padding: 2rem 1rem;
             }
 
-            .hero {
-                background: var(--light-beige);
-            }
-
-            .hero-right {
-                background: var(--primary-green);
-                margin: 2rem -2rem -2rem -2rem;
-                border-radius: 30px 30px 0 0;
+            .hero-left {
+                padding-right: 0;
+                text-align: center;
             }
 
             .hero-title {
                 font-size: 2.5rem;
             }
 
-            .about-grid,
-            .education-cards {
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+
+            .hero-right {
+                background: var(--primary-green);
+                margin: 2rem -1rem 0 -1rem;
+                padding: 3rem 1rem;
+                border-radius: 30px 30px 0 0;
+            }
+
+            .showcase-title {
+                font-size: 1.3rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .skills-row {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .skill-circle {
+                width: 55px;
+                height: 55px;
+                font-size: 1rem;
+            }
+
+            .skill-badge span {
+                font-size: 0.75rem;
+            }
+
+            .companies-row {
                 grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+
+            .company-logo {
+                width: 40px;
+                height: 40px;
+                font-size: 0.9rem;
+            }
+
+            .company-badge span {
+                font-size: 0.85rem;
+            }
+
+            /* About */
+            .about {
+                padding: 4rem 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .about-content h3 {
+                font-size: 1.5rem;
+            }
+
+            .about-content p {
+                font-size: 1rem;
+            }
+
+            .about-metrics {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+
+            .metric-card {
+                padding: 1.5rem 1rem;
+                transform: rotate(0deg) !important;
+            }
+
+            .metric-card:nth-child(even) {
+                transform: rotate(0deg) !important;
+            }
+
+            .metric-value {
+                font-size: 1.5rem;
+            }
+
+            .metric-label {
+                font-size: 0.8rem;
+            }
+
+            /* Skills */
+            .skills {
+                padding: 4rem 1rem;
+            }
+
+            .skills-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .skill-stack {
+                height: auto;
+            }
+
+            .skill-card {
+                position: relative !important;
+                transform: none !important;
+                opacity: 1 !important;
+                margin-bottom: 1rem;
+            }
+
+            .skill-card:nth-child(2),
+            .skill-card:nth-child(3) {
+                display: none;
+            }
+
+            .skill-stack:hover .skill-card:nth-child(2),
+            .skill-stack:hover .skill-card:nth-child(3) {
+                display: block;
+            }
+
+            /* Dashboards */
+            .dashboards {
+                padding: 4rem 1rem;
             }
 
             .dashboard-gallery {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .dashboard-preview {
+                height: 180px;
+            }
+
+            .dashboard-info {
+                padding: 1.5rem;
+            }
+
+            .dashboard-title {
+                font-size: 1.1rem;
+            }
+
+            .dashboard-impact {
+                font-size: 0.9rem;
+            }
+
+            /* Timeline */
+            .experience {
+                padding: 4rem 1rem;
+            }
+
+            .timeline {
+                padding: 0;
             }
 
             .timeline-line {
@@ -838,11 +1035,188 @@
             }
 
             .timeline-item {
-                padding-left: 60px;
+                padding-left: 50px;
             }
 
             .timeline-dot {
                 left: 11px;
+            }
+
+            .timeline-content {
+                padding: 1.5rem;
+            }
+
+            .timeline-title {
+                font-size: 1.1rem;
+            }
+
+            .timeline-company {
+                font-size: 0.9rem;
+            }
+
+            .timeline-highlight {
+                font-size: 0.9rem;
+                padding: 0.8rem;
+            }
+
+            /* Projects */
+            .projects {
+                padding: 4rem 1rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .project-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .project-title {
+                font-size: 1.2rem;
+            }
+
+            .project-description {
+                font-size: 0.95rem;
+            }
+
+            .project-results {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            /* Education */
+            .education {
+                padding: 4rem 1rem;
+            }
+
+            .education-cards {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .edu-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .edu-degree {
+                font-size: 1.2rem;
+            }
+
+            .edu-school {
+                font-size: 1rem;
+            }
+
+            /* Contact */
+            .contact {
+                padding: 4rem 1rem;
+            }
+
+            .contact-title {
+                font-size: 2rem;
+            }
+
+            .contact-subtitle {
+                font-size: 1rem;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-link {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+
+            /* Footer */
+            footer {
+                padding: 2rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .section-badge {
+                font-size: 0.8rem;
+                padding: 0.4rem 1rem;
+            }
+
+            .about-metrics {
+                grid-template-columns: 1fr;
+            }
+
+            .metric-card {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                text-align: left;
+            }
+
+            .metric-value {
+                font-size: 1.8rem;
+            }
+
+            .tech-badge {
+                font-size: 0.75rem;
+                padding: 0.2rem 0.6rem;
+            }
+
+            .dashboard-tech {
+                flex-wrap: wrap;
+            }
+        }
+
+        /* Landscape mode adjustments */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .hero {
+                min-height: auto;
+            }
+
+            .hero-right {
+                padding: 2rem;
+            }
+
+            .hero-metrics {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Touch-friendly adjustments */
+        @media (hover: none) and (pointer: coarse) {
+            .btn {
+                padding: 1rem 2rem;
+                font-size: 1.1rem;
+            }
+
+            .nav-link {
+                padding: 0.6rem 1rem;
+            }
+
+            .contact-link {
+                padding: 1.2rem 2rem;
+            }
+
+            .tech-badge,
+            .skill-tag {
+                padding: 0.5rem 1rem;
             }
         }
     </style>
@@ -884,20 +1258,112 @@
                 </div>
             </div>
             <div class="hero-right">
-                <div class="hero-image">
-                </div>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <div class="stat-number">$500K+</div>
-                        <div class="stat-text">Saved</div>
+                <div class="hero-showcase">
+                    <div class="showcase-title">Technologies & Companies</div>
+                    
+                    <div class="skills-row">
+                        <div class="skill-badge" data-skill="python">
+                            <div class="skill-circle">
+                                <div class="icon-python">
+                                    <div class="python-shape"></div>
+                                    <div class="python-shape-2"></div>
+                                </div>
+                            </div>
+                            <span>Python</span>
+                        </div>
+                        <div class="skill-badge" data-skill="sql">
+                            <div class="skill-circle">
+                                <div class="icon-database">
+                                    <div class="db-layer"></div>
+                                    <div class="db-layer"></div>
+                                    <div class="db-layer"></div>
+                                </div>
+                            </div>
+                            <span>MySQL</span>
+                        </div>
+                        <div class="skill-badge" data-skill="aws">
+                            <div class="skill-circle">
+                                <div class="icon-cloud">
+                                    <div class="cloud-part"></div>
+                                    <div class="cloud-part"></div>
+                                    <div class="cloud-part"></div>
+                                </div>
+                            </div>
+                            <span>AWS</span>
+                        </div>
+                        <div class="skill-badge" data-skill="tableau">
+                            <div class="skill-circle">
+                                <div class="icon-chart">
+                                    <div class="bar"></div>
+                                    <div class="bar"></div>
+                                    <div class="bar"></div>
+                                    <div class="bar"></div>
+                                </div>
+                            </div>
+                            <span>Tableau</span>
+                        </div>
+                        <div class="skill-badge" data-skill="powerbi">
+                            <div class="skill-circle">
+                                <div class="icon-dashboard">
+                                    <div class="dash-square"></div>
+                                    <div class="dash-square"></div>
+                                    <div class="dash-square"></div>
+                                    <div class="dash-square"></div>
+                                </div>
+                            </div>
+                            <span>Power BI</span>
+                        </div>
+                        <div class="skill-badge" data-skill="salesforce">
+                            <div class="skill-circle">
+                                <div class="icon-crm">
+                                    <div class="crm-circle"></div>
+                                    <div class="crm-dot"></div>
+                                </div>
+                            </div>
+                            <span>Salesforce</span>
+                        </div>
                     </div>
-                    <div class="stat">
-                        <div class="stat-number">96%</div>
-                        <div class="stat-text">Faster Reports</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">500K+</div>
-                        <div class="stat-text">Data Points</div>
+                    
+                    <div class="companies-section">
+                        <div class="companies-label">Experience With</div>
+                        <div class="companies-row">
+                            <div class="company-badge" data-company="volvo">
+                                <div class="company-logo">
+                                    <div class="logo-v">
+                                        <div class="v-left"></div>
+                                        <div class="v-right"></div>
+                                    </div>
+                                </div>
+                                <span>Volvo Group</span>
+                            </div>
+                            <div class="company-badge" data-company="aperix">
+                                <div class="company-logo">
+                                    <div class="logo-a">
+                                        <div class="a-triangle"></div>
+                                        <div class="a-bar"></div>
+                                    </div>
+                                </div>
+                                <span>Aperix LLC</span>
+                            </div>
+                            <div class="company-badge" data-company="cyc">
+                                <div class="company-logo">
+                                    <div class="logo-cyc">
+                                        <div class="c-shape"></div>
+                                        <div class="c-shape-2"></div>
+                                    </div>
+                                </div>
+                                <span>Consult Your Community</span>
+                            </div>
+                            <div class="company-badge" data-company="up">
+                                <div class="company-logo">
+                                    <div class="logo-up">
+                                        <div class="u-shape"></div>
+                                        <div class="p-shape"></div>
+                                    </div>
+                                </div>
+                                <span>Urban Platter</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -926,7 +1392,7 @@
                         – because who has time to wait for insights?
                     </p>
                     <div class="fun-fact">
-                        <h4>🎯 Fun Fact</h4>
+                        <h4>Fun Fact</h4>
                         <p>I once analyzed 500K+ transactions to find out why our pasta wasn't selling. 
                         Turns out, data can solve anything – even carb-related mysteries!</p>
                     </div>
@@ -1043,7 +1509,7 @@
                             through anomaly detection algorithms.
                         </p>
                         <span class="dashboard-metric">
-                            ↑ 96% faster reporting
+                            96% faster reporting
                         </span>
                     </div>
                 </div>
@@ -1069,7 +1535,7 @@
                             through optimized routing decisions.
                         </p>
                         <span class="dashboard-metric">
-                            ↑ 18% efficiency gain
+                            18% efficiency gain
                         </span>
                     </div>
                 </div>
@@ -1095,7 +1561,7 @@
                             pricing strategies for 45+ product launches.
                         </p>
                         <span class="dashboard-metric">
-                            ↑ 2.5% profitability growth
+                            2.5% profitability growth
                         </span>
                     </div>
                 </div>
@@ -1121,7 +1587,7 @@
                             and real-time performance metrics.
                         </p>
                         <span class="dashboard-metric">
-                            ↑ 35% efficiency boost
+                            35% efficiency boost
                         </span>
                     </div>
                 </div>
@@ -1145,7 +1611,7 @@
                         <h3 class="timeline-title">AI Apprentice Engineer</h3>
                         <div class="timeline-company">Aperix LLC • Raleigh, NC</div>
                         <div class="timeline-highlight">
-                            ★ Bridging business needs with AI development - teaching machines to think like analysts
+                            Bridging business needs with AI development - teaching machines to think like analysts
                         </div>
                     </div>
                 </div>
@@ -1156,7 +1622,7 @@
                         <h3 class="timeline-title">Business Analyst Intern</h3>
                         <div class="timeline-company">Volvo Group • Raleigh, NC</div>
                         <div class="timeline-highlight">
-                            ★ Saved $500K through anomaly detection • Made reports 96% faster
+                            Saved $500K through anomaly detection • Made reports 96% faster
                         </div>
                     </div>
                 </div>
@@ -1167,7 +1633,7 @@
                         <h3 class="timeline-title">Business Analyst</h3>
                         <div class="timeline-company">Consult Your Community NC • Raleigh, NC</div>
                         <div class="timeline-highlight">
-                            ★ Boosted sales tracking by 35% • Built executive dashboards that actually get used
+                            Boosted sales tracking by 35% • Built executive dashboards that actually get used
                         </div>
                     </div>
                 </div>
@@ -1178,7 +1644,7 @@
                         <h3 class="timeline-title">Business Analyst</h3>
                         <div class="timeline-company">Urban Platter • Mumbai, India</div>
                         <div class="timeline-highlight">
-                            ★ 2.5% profit growth • 5% market share capture • Conquered 3 new markets
+                            2.5% profit growth • 5% market share capture • Conquered 3 new markets
                         </div>
                     </div>
                 </div>
@@ -1204,10 +1670,10 @@
                     </p>
                     <div class="project-results">
                         <span class="result">
-                            ✓ $200K Revenue
+                            $200K Revenue
                         </span>
                         <span class="result">
-                            ✓ Under Budget
+                            Under Budget
                         </span>
                     </div>
                 </div>
@@ -1221,10 +1687,10 @@
                     </p>
                     <div class="project-results">
                         <span class="result">
-                            ✓ 15% Savings
+                            15% Savings
                         </span>
                         <span class="result">
-                            ✓ 25% Faster
+                            25% Faster
                         </span>
                     </div>
                 </div>
