@@ -1,7 +1,4 @@
-@keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -60,15 +57,16 @@
             background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(20px);
             border-radius: 50px;
-            padding: 0.5rem 2rem;
+            padding: 0.75rem 2rem;
             z-index: 1000;
             box-shadow: 0 10px 40px rgba(45, 95, 63, 0.1);
         }
 
         .nav-container {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
             align-items: center;
+            justify-content: center;
         }
 
         .nav-link {
@@ -77,7 +75,8 @@
             font-weight: 500;
             transition: all 0.3s ease;
             position: relative;
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 0.75rem;
+            white-space: nowrap;
         }
 
         .nav-link:hover {
@@ -88,28 +87,29 @@
             color: var(--primary-green);
         }
 
-        /* Hero Section - Split Design */
+        /* Hero Section - Unified Design */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
+            justify-content: center;
             position: relative;
-            background: linear-gradient(to right, var(--light-beige) 50%, var(--primary-green) 50%);
+            background: linear-gradient(135deg, var(--light-beige) 0%, var(--mint) 100%);
+            padding: 120px 20px 40px;
         }
 
         .hero-container {
             width: 100%;
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            align-items: center;
-            padding: 0 4rem;
+            text-align: center;
         }
 
-        .hero-left {
-            padding-right: 4rem;
+        .hero-content {
             animation: slideIn 1s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         @keyframes slideIn {
@@ -123,11 +123,22 @@
             }
         }
 
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes floatSubtle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
         .hero-title {
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: 700;
             color: var(--dark-brown);
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
+            margin-top: 2rem;
             line-height: 1.1;
         }
 
@@ -142,35 +153,39 @@
             bottom: 5px;
             left: 0;
             width: 100%;
-            height: 15px;
+            height: 12px;
             background: var(--mint);
             opacity: 0.3;
             z-index: -1;
         }
 
         .hero-subtitle {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: var(--gray);
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
         }
 
         .hero-description {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--dark-brown);
-            margin-bottom: 2rem;
-            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .hero-cta {
             display: flex;
             gap: 1rem;
+            justify-content: center;
             margin-bottom: 3rem;
         }
 
         .btn {
-            padding: 1rem 2rem;
+            padding: 0.75rem 1.5rem;
             border-radius: 50px;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -203,52 +218,62 @@
             color: var(--cream);
         }
 
-        .hero-right {
-            padding: 4rem;
+        .hero-showcase {
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .showcase-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--dark-brown);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .tech-stack-container {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(45, 95, 63, 0.15);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.2rem;
+        }
+
+        .skill-item {
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            color: var(--cream);
-            text-align: center;
+            gap: 0.4rem;
+            padding: 0.8rem;
+            background: var(--light-beige);
+            border-radius: 15px;
+            transition: all 0.3s ease;
         }
 
-        .hero-image {
-            width: 250px;
-            height: 250px;
-            background: linear-gradient(135deg, var(--beige) 0%, var(--mint) 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 2rem;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-            position: relative;
-            animation: float 3s ease-in-out infinite;
+        .skill-item:hover {
+            transform: translateY(-5px);
+            background: var(--mint);
         }
 
-        .hero-stats {
-            display: flex;
-            gap: 3rem;
-            margin-top: 2rem;
+        .skill-icon {
+            font-size: 1.5rem;
         }
 
-        .stat {
-            text-align: center;
+        .skill-name {
+            font-size: 0.85rem;
+            color: var(--dark-brown);
+            font-weight: 500;
         }
 
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--cream);
-        }
-
-        .stat-text {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        /* About Section - Witty Design */
+        /* About Section */
         .about {
             padding: 6rem 2rem;
             background: var(--light-beige);
@@ -324,8 +349,9 @@
 
         .about-metrics {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, 1fr);
             gap: 1.5rem;
+            justify-items: center;
         }
 
         .metric-card {
@@ -336,6 +362,8 @@
             text-align: center;
             transform: rotate(-2deg);
             transition: all 0.3s ease;
+            width: 100%;
+            max-width: 250px;
         }
 
         .metric-card:nth-child(even) {
@@ -344,11 +372,6 @@
 
         .metric-card:hover {
             transform: rotate(0deg) scale(1.05);
-        }
-
-        .metric-card i {
-            font-size: 2rem;
-            margin-bottom: 1rem;
         }
 
         .metric-value {
@@ -362,7 +385,7 @@
             opacity: 0.9;
         }
 
-        /* Skills Section - Card Stack Design */
+        /* Skills Section */
         .skills {
             padding: 6rem 2rem;
             background: var(--cream);
@@ -456,6 +479,7 @@
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
+            justify-items: center;
         }
 
         .dashboard-card {
@@ -466,6 +490,8 @@
             transition: all 0.3s ease;
             cursor: pointer;
             animation: floatSubtle 5s ease-in-out infinite;
+            width: 100%;
+            max-width: 500px;
         }
 
         .dashboard-card:nth-child(1) { animation-delay: 0s; }
@@ -553,7 +579,7 @@
             margin-top: 1rem;
         }
 
-        /* Experience Timeline - Minimal Design */
+        /* Experience Timeline */
         .experience {
             padding: 6rem 2rem;
             background: var(--cream);
@@ -625,78 +651,86 @@
             margin-top: 1rem;
         }
 
-        .timeline-highlight i {
-            color: var(--primary-green);
-            margin-right: 0.5rem;
-        }
-
-        /* Projects Section */
+        /* Projects Section - Academic Focus */
         .projects {
             padding: 6rem 2rem;
-            background: var(--light-beige);
+            background: var(--beige-gradient);
+            position: relative;
+        }
+
+        .projects::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--mint) 0%, var(--sage-green) 50%, var(--primary-green) 100%);
         }
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
             margin-top: 3rem;
+            justify-items: center;
         }
 
         .project-card {
             background: var(--white);
-            border-radius: 20px;
-            padding: 2.5rem;
+            border-radius: 25px;
+            padding: 3rem;
             position: relative;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             animation: float 6s ease-in-out infinite;
+            border: 2px solid var(--mint);
+            box-shadow: 0 15px 50px rgba(45, 95, 63, 0.1);
+            width: 100%;
+            max-width: 500px;
         }
 
         .project-card:nth-child(1) { animation-delay: 0s; }
         .project-card:nth-child(2) { animation-delay: 1s; }
 
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: var(--gradient);
-        }
-
         .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(45, 95, 63, 0.2);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 80px rgba(45, 95, 63, 0.2);
+            border-color: var(--primary-green);
         }
 
         .project-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--beige);
-            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--mint) 0%, var(--sage-green) 100%);
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            color: var(--white);
+            box-shadow: 0 10px 30px rgba(45, 95, 63, 0.2);
         }
 
         .project-title {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             color: var(--dark-brown);
             margin-bottom: 1rem;
+            font-weight: 700;
         }
 
         .project-description {
             color: var(--gray);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            font-size: 1.05rem;
         }
 
         .project-results {
             display: flex;
             gap: 2rem;
+            flex-wrap: wrap;
         }
 
         .result {
@@ -704,7 +738,11 @@
             align-items: center;
             gap: 0.5rem;
             color: var(--primary-green);
-            font-weight: 600;
+            font-weight: 700;
+            background: var(--beige);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
         }
 
         /* Education Section */
@@ -718,6 +756,7 @@
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
+            justify-items: center;
         }
 
         .edu-card {
@@ -727,6 +766,8 @@
             border-radius: 20px;
             position: relative;
             overflow: hidden;
+            width: 100%;
+            max-width: 500px;
         }
 
         .edu-card::after {
@@ -783,20 +824,23 @@
         .contact-links {
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            gap: 1.5rem;
             flex-wrap: wrap;
+            align-items: center;
         }
 
         .contact-link {
-            display: flex;
+            display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
             background: rgba(255, 255, 255, 0.1);
-            padding: 1rem 2rem;
+            padding: 1rem 1.5rem;
             border-radius: 50px;
             color: var(--cream);
             text-decoration: none;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         .contact-link:hover {
@@ -814,7 +858,6 @@
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
-            /* Navigation */
             nav {
                 top: 10px;
                 left: 10px;
@@ -834,20 +877,12 @@
                 padding: 0.3rem 0.6rem;
             }
 
-            /* Hero */
             .hero {
-                background: var(--light-beige);
-                padding-top: 80px;
+                padding-top: 100px;
             }
 
             .hero-container {
-                grid-template-columns: 1fr;
                 padding: 2rem 1rem;
-            }
-
-            .hero-left {
-                padding-right: 0;
-                text-align: center;
             }
 
             .hero-title {
@@ -868,57 +903,16 @@
             }
 
             .btn {
-                width: 100%;
-                max-width: 300px;
+                width: 250px;
                 justify-content: center;
             }
 
-            .hero-right {
-                background: var(--primary-green);
-                margin: 2rem -1rem 0 -1rem;
-                padding: 3rem 1rem;
-                border-radius: 30px 30px 0 0;
+            .tech-stack-container {
+                padding: 2rem;
             }
 
-            .showcase-title {
-                font-size: 1.3rem;
-                margin-bottom: 1.5rem;
-            }
-
-            .skills-row {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 1rem;
-                margin-bottom: 2rem;
-            }
-
-            .skill-circle {
-                width: 55px;
-                height: 55px;
-                font-size: 1rem;
-            }
-
-            .skill-badge span {
-                font-size: 0.75rem;
-            }
-
-            .companies-row {
-                grid-template-columns: 1fr;
-                gap: 0.8rem;
-            }
-
-            .company-logo {
-                width: 40px;
-                height: 40px;
-                font-size: 0.9rem;
-            }
-
-            .company-badge span {
-                font-size: 0.85rem;
-            }
-
-            /* About */
-            .about {
-                padding: 4rem 1rem;
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .section-title {
@@ -930,196 +924,20 @@
                 gap: 2rem;
             }
 
-            .about-content {
-                padding: 2rem 1.5rem;
-            }
-
-            .about-content h3 {
-                font-size: 1.5rem;
-            }
-
-            .about-content p {
-                font-size: 1rem;
-            }
-
-            .about-metrics {
-                grid-template-columns: 1fr 1fr;
-                gap: 1rem;
-            }
-
-            .metric-card {
-                padding: 1.5rem 1rem;
-                transform: rotate(0deg) !important;
-            }
-
-            .metric-card:nth-child(even) {
-                transform: rotate(0deg) !important;
-            }
-
-            .metric-value {
-                font-size: 1.5rem;
-            }
-
-            .metric-label {
-                font-size: 0.8rem;
-            }
-
-            /* Skills */
-            .skills {
-                padding: 4rem 1rem;
-            }
-
             .skills-container {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .skill-stack {
-                height: auto;
-            }
-
-            .skill-card {
-                position: relative !important;
-                transform: none !important;
-                opacity: 1 !important;
-                margin-bottom: 1rem;
-            }
-
-            .skill-card:nth-child(2),
-            .skill-card:nth-child(3) {
-                display: none;
-            }
-
-            .skill-stack:hover .skill-card:nth-child(2),
-            .skill-stack:hover .skill-card:nth-child(3) {
-                display: block;
-            }
-
-            /* Dashboards */
-            .dashboards {
-                padding: 4rem 1rem;
             }
 
             .dashboard-gallery {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .dashboard-preview {
-                height: 180px;
-            }
-
-            .dashboard-info {
-                padding: 1.5rem;
-            }
-
-            .dashboard-title {
-                font-size: 1.1rem;
-            }
-
-            .dashboard-impact {
-                font-size: 0.9rem;
-            }
-
-            /* Timeline */
-            .experience {
-                padding: 4rem 1rem;
-            }
-
-            .timeline {
-                padding: 0;
-            }
-
-            .timeline-line {
-                left: 20px;
-            }
-
-            .timeline-item {
-                padding-left: 50px;
-            }
-
-            .timeline-dot {
-                left: 11px;
-            }
-
-            .timeline-content {
-                padding: 1.5rem;
-            }
-
-            .timeline-title {
-                font-size: 1.1rem;
-            }
-
-            .timeline-company {
-                font-size: 0.9rem;
-            }
-
-            .timeline-highlight {
-                font-size: 0.9rem;
-                padding: 0.8rem;
-            }
-
-            /* Projects */
-            .projects {
-                padding: 4rem 1rem;
             }
 
             .projects-grid {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .project-card {
-                padding: 2rem 1.5rem;
-            }
-
-            .project-title {
-                font-size: 1.2rem;
-            }
-
-            .project-description {
-                font-size: 0.95rem;
-            }
-
-            .project-results {
-                flex-direction: column;
-                gap: 1rem;
-                align-items: flex-start;
-            }
-
-            /* Education */
-            .education {
-                padding: 4rem 1rem;
             }
 
             .education-cards {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .edu-card {
-                padding: 2rem 1.5rem;
-            }
-
-            .edu-degree {
-                font-size: 1.2rem;
-            }
-
-            .edu-school {
-                font-size: 1rem;
-            }
-
-            /* Contact */
-            .contact {
-                padding: 4rem 1rem;
-            }
-
-            .contact-title {
-                font-size: 2rem;
-            }
-
-            .contact-subtitle {
-                font-size: 1rem;
             }
 
             .contact-links {
@@ -1132,92 +950,6 @@
                 max-width: 300px;
                 justify-content: center;
             }
-
-            /* Footer */
-            footer {
-                padding: 2rem 1rem;
-                font-size: 0.9rem;
-            }
-        }
-
-        /* Extra small devices */
-        @media (max-width: 480px) {
-            .hero-title {
-                font-size: 2rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1.1rem;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
-
-            .section-badge {
-                font-size: 0.8rem;
-                padding: 0.4rem 1rem;
-            }
-
-            .about-metrics {
-                grid-template-columns: 1fr;
-            }
-
-            .metric-card {
-                display: flex;
-                align-items: center;
-                gap: 1rem;
-                text-align: left;
-            }
-
-            .metric-value {
-                font-size: 1.8rem;
-            }
-
-            .tech-badge {
-                font-size: 0.75rem;
-                padding: 0.2rem 0.6rem;
-            }
-
-            .dashboard-tech {
-                flex-wrap: wrap;
-            }
-        }
-
-        /* Landscape mode adjustments */
-        @media (max-width: 768px) and (orientation: landscape) {
-            .hero {
-                min-height: auto;
-            }
-
-            .hero-right {
-                padding: 2rem;
-            }
-
-            .hero-metrics {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        /* Touch-friendly adjustments */
-        @media (hover: none) and (pointer: coarse) {
-            .btn {
-                padding: 1rem 2rem;
-                font-size: 1.1rem;
-            }
-
-            .nav-link {
-                padding: 0.6rem 1rem;
-            }
-
-            .contact-link {
-                padding: 1.2rem 2rem;
-            }
-
-            .tech-badge,
-            .skill-tag {
-                padding: 0.5rem 1rem;
-            }
         }
     </style>
 </head>
@@ -1227,7 +959,6 @@
         <div class="nav-container">
             <a href="#home" class="nav-link active">Home</a>
             <a href="#about" class="nav-link">About</a>
-            <a href="#skills" class="nav-link">Skills</a>
             <a href="#dashboards" class="nav-link">Dashboards</a>
             <a href="#experience" class="nav-link">Experience</a>
             <a href="#projects" class="nav-link">Projects</a>
@@ -1238,7 +969,7 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-container">
-            <div class="hero-left">
+            <div class="hero-content">
                 <h1 class="hero-title">
                     I'm <span class="highlight">Naisargi</span>,<br>
                     Your Data Whisperer
@@ -1256,112 +987,35 @@
                         See My Work
                     </a>
                 </div>
-            </div>
-            <div class="hero-right">
+                
                 <div class="hero-showcase">
-                    <div class="showcase-title">Technologies & Companies</div>
+                    <div class="showcase-title">Tech Stack</div>
                     
-                    <div class="skills-row">
-                        <div class="skill-badge" data-skill="python">
-                            <div class="skill-circle">
-                                <div class="icon-python">
-                                    <div class="python-shape"></div>
-                                    <div class="python-shape-2"></div>
-                                </div>
+                    <div class="tech-stack-container">
+                        <div class="skills-grid">
+                            <div class="skill-item">
+                                <div class="skill-icon">📊</div>
+                                <span class="skill-name">Python</span>
                             </div>
-                            <span>Python</span>
-                        </div>
-                        <div class="skill-badge" data-skill="sql">
-                            <div class="skill-circle">
-                                <div class="icon-database">
-                                    <div class="db-layer"></div>
-                                    <div class="db-layer"></div>
-                                    <div class="db-layer"></div>
-                                </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">🗄️</div>
+                                <span class="skill-name">MySQL</span>
                             </div>
-                            <span>MySQL</span>
-                        </div>
-                        <div class="skill-badge" data-skill="aws">
-                            <div class="skill-circle">
-                                <div class="icon-cloud">
-                                    <div class="cloud-part"></div>
-                                    <div class="cloud-part"></div>
-                                    <div class="cloud-part"></div>
-                                </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">☁️</div>
+                                <span class="skill-name">AWS</span>
                             </div>
-                            <span>AWS</span>
-                        </div>
-                        <div class="skill-badge" data-skill="tableau">
-                            <div class="skill-circle">
-                                <div class="icon-chart">
-                                    <div class="bar"></div>
-                                    <div class="bar"></div>
-                                    <div class="bar"></div>
-                                    <div class="bar"></div>
-                                </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">📈</div>
+                                <span class="skill-name">Tableau</span>
                             </div>
-                            <span>Tableau</span>
-                        </div>
-                        <div class="skill-badge" data-skill="powerbi">
-                            <div class="skill-circle">
-                                <div class="icon-dashboard">
-                                    <div class="dash-square"></div>
-                                    <div class="dash-square"></div>
-                                    <div class="dash-square"></div>
-                                    <div class="dash-square"></div>
-                                </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">📉</div>
+                                <span class="skill-name">Power BI</span>
                             </div>
-                            <span>Power BI</span>
-                        </div>
-                        <div class="skill-badge" data-skill="salesforce">
-                            <div class="skill-circle">
-                                <div class="icon-crm">
-                                    <div class="crm-circle"></div>
-                                    <div class="crm-dot"></div>
-                                </div>
-                            </div>
-                            <span>Salesforce</span>
-                        </div>
-                    </div>
-                    
-                    <div class="companies-section">
-                        <div class="companies-label">Experience With</div>
-                        <div class="companies-row">
-                            <div class="company-badge" data-company="volvo">
-                                <div class="company-logo">
-                                    <div class="logo-v">
-                                        <div class="v-left"></div>
-                                        <div class="v-right"></div>
-                                    </div>
-                                </div>
-                                <span>Volvo Group</span>
-                            </div>
-                            <div class="company-badge" data-company="aperix">
-                                <div class="company-logo">
-                                    <div class="logo-a">
-                                        <div class="a-triangle"></div>
-                                        <div class="a-bar"></div>
-                                    </div>
-                                </div>
-                                <span>Aperix LLC</span>
-                            </div>
-                            <div class="company-badge" data-company="cyc">
-                                <div class="company-logo">
-                                    <div class="logo-cyc">
-                                        <div class="c-shape"></div>
-                                        <div class="c-shape-2"></div>
-                                    </div>
-                                </div>
-                                <span>Consult Your Community</span>
-                            </div>
-                            <div class="company-badge" data-company="up">
-                                <div class="company-logo">
-                                    <div class="logo-up">
-                                        <div class="u-shape"></div>
-                                        <div class="p-shape"></div>
-                                    </div>
-                                </div>
-                                <span>Urban Platter</span>
+                            <div class="skill-item">
+                                <div class="skill-icon">🔄</div>
+                                <span class="skill-name">Salesforce</span>
                             </div>
                         </div>
                     </div>
@@ -1379,22 +1033,17 @@
             </div>
             <div class="about-grid">
                 <div class="about-content">
-                    <h3>From Mumbai to Raleigh, One Query at a Time</h3>
+                    <h3>Business Analytics Expert with a Global Perspective</h3>
                     <p>
-                        <strong>Plot twist:</strong> I started as an Electronics Engineer who fell in love with data! 
-                        Now I'm that person who gets genuinely excited about pivot tables and thinks 
-                        in SQL joins. Currently pursuing my Masters at NC State while moonlighting as an 
-                        AI Apprentice Engineer (yes, I'm teaching robots to be as data-obsessed as I am).
-                    </p>
-                    <p>
-                        When I'm not turning coffee into dashboards, you'll find me crafting data stories that 
-                        actually make CFOs smile. My superpower? Making a 4-hour report run in 12 minutes 
-                        – because who has time to wait for insights?
+                        Electronics engineer turned data strategist with expertise in Python, SQL, Tableau, and AWS. 
+                        I've delivered $500K in cost savings, improved reporting efficiency by 96%, and driven 2.5% 
+                        profitability growth across e-commerce and supply chain sectors. NC State Masters graduate 
+                        currently working in AI development.
                     </p>
                     <div class="fun-fact">
-                        <h4>Fun Fact</h4>
-                        <p>I once analyzed 500K+ transactions to find out why our pasta wasn't selling. 
-                        Turns out, data can solve anything – even carb-related mysteries!</p>
+                        <h4>Beyond the Data</h4>
+                        <p>Always stopping for sunset photos, mentoring international students, and reading Architectural Digest. 
+                        I find patterns everywhere – in spreadsheets, skylines, and design.</p>
                     </div>
                 </div>
                 <div class="about-metrics">
@@ -1413,66 +1062,6 @@
                     <div class="metric-card">
                         <div class="metric-value">3</div>
                         <div class="metric-label">New Markets Conquered</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section class="skills" id="skills">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">Technical Arsenal</span>
-                <h2 class="section-title">Tools I Wield Like a Pro</h2>
-            </div>
-            <div class="skills-container">
-                <div class="skill-stack">
-                    <div class="skill-card">
-                        <div class="skill-icon">
-                        </div>
-                        <div class="skill-name">Data & Analytics</div>
-                        <div class="skill-list">Python • SQL • Statistical Analysis</div>
-                    </div>
-                    <div class="skill-card">
-                        <div class="skill-name">More Analytics</div>
-                        <div class="skill-list">Pandas • NumPy • Data Viz</div>
-                    </div>
-                    <div class="skill-card">
-                        <div class="skill-name">Even More!</div>
-                        <div class="skill-list">Machine Learning • Predictive Models</div>
-                    </div>
-                </div>
-                <div class="skill-stack">
-                    <div class="skill-card">
-                        <div class="skill-icon">
-                        </div>
-                        <div class="skill-name">Cloud & BI</div>
-                        <div class="skill-list">AWS • Tableau • Power BI</div>
-                    </div>
-                    <div class="skill-card">
-                        <div class="skill-name">Cloud Services</div>
-                        <div class="skill-list">Redshift • S3 • QuickSight</div>
-                    </div>
-                    <div class="skill-card">
-                        <div class="skill-name">And More!</div>
-                        <div class="skill-list">Apache Airflow • AWS Glue</div>
-                    </div>
-                </div>
-                <div class="skill-stack">
-                    <div class="skill-card">
-                        <div class="skill-icon">
-                        </div>
-                        <div class="skill-name">Business Tools</div>
-                        <div class="skill-list">Salesforce • ServiceNow • Oracle</div>
-                    </div>
-                    <div class="skill-card">
-                        <div class="skill-name">Methodologies</div>
-                        <div class="skill-list">Agile • Scrum • Waterfall</div>
-                    </div>
-                    <div class="skill-card">
-                        <div class="skill-name">Expertise</div>
-                        <div class="skill-list">SDLC • Process Optimization</div>
                     </div>
                 </div>
             </div>
@@ -1661,8 +1250,7 @@
             </div>
             <div class="projects-grid">
                 <div class="project-card">
-                    <div class="project-icon">
-                    </div>
+                    <div class="project-icon">🌍</div>
                     <h3 class="project-title">Internationally, Yours</h3>
                     <p class="project-description">
                         Built a platform for international students with a $200K revenue potential. 
@@ -1670,16 +1258,15 @@
                     </p>
                     <div class="project-results">
                         <span class="result">
-                            $200K Revenue
+                            💰 $200K Revenue
                         </span>
                         <span class="result">
-                            Under Budget
+                            ✅ Under Budget
                         </span>
                     </div>
                 </div>
                 <div class="project-card">
-                    <div class="project-icon">
-                    </div>
+                    <div class="project-icon">🏗️</div>
                     <h3 class="project-title">Lighthouse Relocation</h3>
                     <p class="project-description">
                         Managed a $12M infrastructure project analysis that found 15% cost savings. 
@@ -1687,10 +1274,10 @@
                     </p>
                     <div class="project-results">
                         <span class="result">
-                            15% Savings
+                            📉 15% Savings
                         </span>
                         <span class="result">
-                            25% Faster
+                            ⚡ 25% Faster
                         </span>
                     </div>
                 </div>
@@ -1709,7 +1296,7 @@
                 <div class="edu-card">
                     <div class="edu-degree">Masters in Engineering Management</div>
                     <div class="edu-school">North Carolina State University</div>
-                    <div class="edu-date">August 2023 - May 2025</div>
+                    <div class="edu-date">August 2023 - May 2025 (Graduated)</div>
                 </div>
                 <div class="edu-card">
                     <div class="edu-degree">B.Tech in Electronics Engineering</div>
@@ -1729,16 +1316,16 @@
             </p>
             <div class="contact-links">
                 <a href="mailto:naisargidoshi16@gmail.com" class="contact-link">
-                    naisargidoshi16@gmail.com
+                    📧 naisargidoshi16@gmail.com
                 </a>
                 <a href="tel:+19193456638" class="contact-link">
-                    +1 (919) 345-6638
+                    📞 +1 (919) 345-6638
                 </a>
                 <a href="https://linkedin.com/in/naisargidoshi16" class="contact-link" target="_blank">
-                    LinkedIn
+                    💼 LinkedIn
                 </a>
                 <a href="#" class="contact-link">
-                    Raleigh, NC
+                    📍 Raleigh, NC
                 </a>
             </div>
         </div>
@@ -1754,9 +1341,12 @@
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
 
