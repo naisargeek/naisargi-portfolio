@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Commerce Performance Tracker | Naisargi Doshi</title>
+    <title>Naisargi Doshi | Business Analyst</title>
     <style>
         * {
             margin: 0;
@@ -23,100 +23,359 @@
             --gray: #6b6b6b;
             --white: #ffffff;
             --gradient: linear-gradient(135deg, #2d5f3f 0%, #87a96b 100%);
-            --blue-accent: #4a90e2;
-            --orange-accent: #ff9f40;
-            --purple-accent: #8b5cf6;
-            --pink-accent: #ec4899;
+            --beige-gradient: linear-gradient(135deg, #f5e6d3 0%, #faf6f0 100%);
         }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--cream);
             color: var(--dark-brown);
+            overflow-x: hidden;
             line-height: 1.6;
         }
 
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--beige);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-green);
+            border-radius: 5px;
+        }
+
         /* Navigation */
-        .nav-header {
-            background: var(--white);
-            padding: 1.5rem 2rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 50px;
+            padding: 0.75rem 2rem;
+            z-index: 1000;
+            box-shadow: 0 10px 40px rgba(45, 95, 63, 0.1);
         }
 
-        .nav-content {
-            max-width: 1400px;
-            margin: 0 auto;
+        .nav-container {
             display: flex;
-            justify-content: space-between;
+            gap: 1.5rem;
             align-items: center;
+            justify-content: center;
         }
 
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--primary-green);
+        .nav-link {
+            color: var(--dark-brown);
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0.75rem;
+            white-space: nowrap;
         }
 
-        .back-btn:hover {
-            transform: translateX(-5px);
+        .nav-link:hover {
+            color: var(--primary-green);
         }
 
-        .dashboard-title-nav {
-            font-size: 1.2rem;
-            color: var(--dark-brown);
-            font-weight: 600;
+        .nav-link.active {
+            color: var(--primary-green);
         }
 
-        /* Hero Section */
-        .dashboard-hero {
-            background: var(--gradient);
-            padding: 4rem 2rem;
-            color: var(--white);
+        /* Hero Section - Unified Design */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, var(--light-beige) 0%, var(--mint) 100%);
+            padding: 120px 20px 40px;
+        }
+
+        .hero-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
         }
 
         .hero-content {
-            max-width: 1400px;
+            animation: slideIn 1s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes floatSubtle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--dark-brown);
+            margin-bottom: 0.75rem;
+            margin-top: 2rem;
+            line-height: 1.1;
+        }
+
+        .hero-title .highlight {
+            color: var(--primary-green);
+            position: relative;
+        }
+
+        .hero-title .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background: var(--mint);
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .hero-description {
+            font-size: 1rem;
+            color: var(--dark-brown);
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-green);
+            color: var(--cream);
+            box-shadow: 0 10px 30px rgba(45, 95, 63, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(45, 95, 63, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary-green);
+            border: 2px solid var(--primary-green);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-green);
+            color: var(--cream);
+        }
+
+        .hero-showcase {
+            width: 100%;
+            max-width: 700px;
             margin: 0 auto;
         }
 
-        .dashboard-main-title {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            animation: fadeIn 0.6s ease;
+        .showcase-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--dark-brown);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
         }
 
-        .dashboard-subtitle {
-            font-size: 1.2rem;
-            opacity: 0.95;
-            margin-bottom: 2rem;
-        }
-
-        .key-metrics {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .metric-box {
-            background: rgba(255, 255, 255, 0.1);
+        .tech-stack-container {
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(10px);
-            padding: 1.5rem;
+            padding: 2.5rem;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(45, 95, 63, 0.15);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.2rem;
+        }
+
+        .skill-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.8rem;
+            background: var(--light-beige);
             border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+            background: var(--mint);
+        }
+
+        .skill-icon {
+            font-size: 1.5rem;
+        }
+
+        .skill-name {
+            font-size: 0.85rem;
+            color: var(--dark-brown);
+            font-weight: 500;
+        }
+
+        /* About Section */
+        .about {
+            padding: 6rem 2rem;
+            background: var(--light-beige);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            animation: slideUp 0.6s ease;
+            margin-bottom: 4rem;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: var(--mint);
+            color: var(--primary-green);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--dark-brown);
+            margin-bottom: 1rem;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-content {
+            background: var(--cream);
+            padding: 3rem;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(45, 95, 63, 0.1);
+        }
+
+        .about-content h3 {
+            font-size: 1.8rem;
+            color: var(--primary-green);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            color: var(--dark-brown);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .fun-fact {
+            background: var(--beige);
+            padding: 1.5rem;
+            border-radius: 20px;
+            margin-top: 2rem;
+            border-left: 4px solid var(--primary-green);
+        }
+
+        .fun-fact h4 {
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .about-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            justify-items: center;
+        }
+
+        .metric-card {
+            background: var(--gradient);
+            color: var(--cream);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transform: rotate(-2deg);
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 250px;
+        }
+
+        .metric-card:nth-child(even) {
+            transform: rotate(2deg);
+        }
+
+        .metric-card:hover {
+            transform: rotate(0deg) scale(1.05);
         }
 
         .metric-value {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
         }
@@ -126,713 +385,998 @@
             opacity: 0.9;
         }
 
-        /* Main Content */
-        .dashboard-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
+        /* Skills Section */
+        .skills {
+            padding: 6rem 2rem;
+            background: var(--cream);
         }
 
-        /* Dashboard Grid */
-        .dashboard-grid {
+        .skills-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            margin-bottom: 3rem;
+            margin-top: 3rem;
+        }
+
+        .skill-stack {
+            position: relative;
+            height: 250px;
+        }
+
+        .skill-card {
+            position: absolute;
+            width: 100%;
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(45, 95, 63, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .skill-card:nth-child(1) {
+            transform: translateY(0px);
+            z-index: 3;
+            animation: floatSubtle 3s ease-in-out infinite;
+        }
+
+        .skill-card:nth-child(2) {
+            transform: translateY(10px);
+            z-index: 2;
+            opacity: 0.9;
+            animation: floatSubtle 3s ease-in-out infinite 0.5s;
+        }
+
+        .skill-card:nth-child(3) {
+            transform: translateY(20px);
+            z-index: 1;
+            opacity: 0.8;
+            animation: floatSubtle 3s ease-in-out infinite 1s;
+        }
+
+        .skill-stack:hover .skill-card:nth-child(1) {
+            transform: translateY(-20px);
+        }
+
+        .skill-stack:hover .skill-card:nth-child(2) {
+            transform: translateY(0px);
+        }
+
+        .skill-stack:hover .skill-card:nth-child(3) {
+            transform: translateY(20px);
+        }
+
+        .skill-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .skill-name {
+            font-size: 1.2rem;
+            color: var(--dark-brown);
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-list {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Dashboard Showcase Section */
+        .dashboards {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--light-beige) 0%, var(--beige) 100%);
+        }
+
+        .dashboard-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            justify-items: center;
         }
 
         .dashboard-card {
             background: var(--white);
             border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid var(--beige);
-        }
-
-        .card-title {
-            font-size: 1.5rem;
-            color: var(--dark-brown);
-            font-weight: 600;
-        }
-
-        .card-badge {
-            background: var(--mint);
-            color: var(--primary-green);
-            padding: 0.3rem 0.8rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        /* Product Performance Table */
-        .product-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .product-table th {
-            background: var(--light-beige);
-            color: var(--dark-brown);
-            padding: 0.75rem;
-            text-align: left;
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .product-table td {
-            padding: 0.75rem;
-            border-bottom: 1px solid var(--beige);
-            color: var(--gray);
-        }
-
-        .product-table tr:hover {
-            background: var(--cream);
-        }
-
-        .trend-badge {
-            display: inline-block;
-            padding: 0.2rem 0.6rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .trend-up {
-            background: #efe;
-            color: #080;
-        }
-
-        .trend-down {
-            background: #fee;
-            color: #d00;
-        }
-
-        .trend-stable {
-            background: #fef6e6;
-            color: #f59e0b;
-        }
-
-        /* Revenue Chart */
-        .revenue-chart {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            height: 200px;
-            padding: 1rem;
-            background: var(--cream);
-            border-radius: 10px;
-        }
-
-        .revenue-bar {
-            flex: 1;
-            margin: 0 0.25rem;
-            background: linear-gradient(180deg, var(--pink-accent) 0%, var(--orange-accent) 100%);
-            border-radius: 5px 5px 0 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-            padding: 0.5rem;
-            color: var(--white);
-            font-weight: 600;
-            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(45, 95, 63, 0.15);
             transition: all 0.3s ease;
+            cursor: pointer;
+            animation: floatSubtle 5s ease-in-out infinite;
+            width: 100%;
+            max-width: 500px;
         }
 
-        .revenue-bar:hover {
-            transform: scale(1.05);
+        .dashboard-card:nth-child(1) { animation-delay: 0s; }
+        .dashboard-card:nth-child(2) { animation-delay: 0.5s; }
+        .dashboard-card:nth-child(3) { animation-delay: 1s; }
+        .dashboard-card:nth-child(4) { animation-delay: 1.5s; }
+
+        .dashboard-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(45, 95, 63, 0.2);
         }
 
-        .revenue-bar span {
-            position: absolute;
-            bottom: -25px;
-            color: var(--gray);
-            font-size: 0.75rem;
-        }
-
-        /* Category Distribution */
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-        }
-
-        .category-item {
-            background: var(--cream);
-            padding: 1.5rem;
-            border-radius: 10px;
+        .dashboard-preview {
+            height: 250px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
             overflow: hidden;
         }
 
-        .category-item::before {
-            content: '';
+        .dashboard-charts {
             position: absolute;
-            left: 0;
-            top: 0;
+            width: 100%;
             height: 100%;
-            width: 4px;
-        }
-
-        .category-item:nth-child(1)::before { background: var(--blue-accent); }
-        .category-item:nth-child(2)::before { background: var(--orange-accent); }
-        .category-item:nth-child(3)::before { background: var(--purple-accent); }
-        .category-item:nth-child(4)::before { background: var(--pink-accent); }
-
-        .category-name {
-            font-weight: 600;
-            color: var(--dark-brown);
-            margin-bottom: 0.5rem;
-        }
-
-        .category-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-green);
-        }
-
-        .category-percentage {
-            font-size: 0.85rem;
-            color: var(--gray);
-        }
-
-        /* Conversion Funnel */
-        .funnel-container {
-            padding: 1rem;
-        }
-
-        .funnel-step {
-            background: var(--cream);
-            padding: 1rem;
-            margin-bottom: 0.5rem;
-            border-radius: 8px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-        }
-
-        .funnel-step-bar {
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            background: var(--gradient);
-            border-radius: 8px 0 0 8px;
-            opacity: 0.2;
-        }
-
-        .funnel-label {
-            font-weight: 500;
-            color: var(--dark-brown);
-            z-index: 1;
-        }
-
-        .funnel-value {
-            font-weight: 600;
-            color: var(--primary-green);
-            z-index: 1;
-        }
-
-        /* Customer Segments */
-        .segment-chart {
-            display: flex;
+            align-items: flex-end;
             justify-content: space-around;
-            align-items: center;
             padding: 2rem;
         }
 
-        .segment-circle {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-weight: 600;
-            position: relative;
-            transition: all 0.3s ease;
+        .chart-bar {
+            width: 30px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px 5px 0 0;
+            animation: grow 2s ease-in-out infinite;
         }
 
-        .segment-circle:hover {
-            transform: scale(1.1);
+        .chart-bar:nth-child(1) { height: 60%; animation-delay: 0s; }
+        .chart-bar:nth-child(2) { height: 80%; animation-delay: 0.2s; }
+        .chart-bar:nth-child(3) { height: 45%; animation-delay: 0.4s; }
+        .chart-bar:nth-child(4) { height: 90%; animation-delay: 0.6s; }
+        .chart-bar:nth-child(5) { height: 70%; animation-delay: 0.8s; }
+
+        @keyframes grow {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(1.2); }
         }
 
-        .segment-circle:nth-child(1) { background: linear-gradient(135deg, var(--blue-accent), #357abd); }
-        .segment-circle:nth-child(2) { background: linear-gradient(135deg, var(--orange-accent), #e67e22); }
-        .segment-circle:nth-child(3) { background: linear-gradient(135deg, var(--purple-accent), #6b46c1); }
-
-        .segment-label {
-            font-size: 0.85rem;
-            margin-top: 0.5rem;
+        .dashboard-info {
+            padding: 2rem;
         }
 
-        .segment-value {
-            font-size: 1.5rem;
-        }
-
-        /* Pricing Strategy */
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-        }
-
-        .pricing-card {
-            background: var(--cream);
-            padding: 1.2rem;
-            border-radius: 10px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .pricing-label {
-            font-size: 0.85rem;
-            color: var(--gray);
+        .dashboard-title {
+            font-size: 1.3rem;
+            color: var(--dark-brown);
             margin-bottom: 0.5rem;
         }
 
-        .pricing-value {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--primary-green);
-        }
-
-        .pricing-change {
-            font-size: 0.85rem;
-            margin-top: 0.3rem;
-        }
-
-        .positive { color: #080; }
-        .negative { color: #d00; }
-
-        /* Tech Stack */
-        .tech-stack {
+        .dashboard-tech {
             display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-top: 1.5rem;
-        }
-
-        .tech-tag {
-            background: var(--beige);
-            color: var(--primary-green);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        /* Impact Section */
-        .impact-section {
-            background: var(--light-beige);
-            border-radius: 20px;
-            padding: 3rem;
-            margin-top: 3rem;
-        }
-
-        .impact-title {
-            font-size: 2rem;
-            color: var(--dark-brown);
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .impact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .impact-item {
-            text-align: center;
-        }
-
-        .impact-icon {
-            font-size: 3rem;
+            gap: 0.5rem;
             margin-bottom: 1rem;
         }
 
-        .impact-value {
-            font-size: 1.8rem;
-            font-weight: 700;
+        .tech-badge {
+            background: var(--beige);
             color: var(--primary-green);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+        }
+
+        .dashboard-impact {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .dashboard-metric {
+            display: inline-block;
+            color: var(--primary-green);
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        /* Experience Timeline */
+        .experience {
+            padding: 6rem 2rem;
+            background: var(--cream);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            margin-top: 3rem;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--mint);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 90px;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 41px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            border: 4px solid var(--cream);
+            box-shadow: 0 0 0 2px var(--mint);
+        }
+
+        .timeline-content {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(45, 95, 63, 0.1);
+        }
+
+        .timeline-date {
+            color: var(--primary-green);
+            font-size: 0.9rem;
+            font-weight: 600;
             margin-bottom: 0.5rem;
         }
 
-        .impact-description {
+        .timeline-title {
+            font-size: 1.3rem;
+            color: var(--dark-brown);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-company {
             color: var(--gray);
+            margin-bottom: 1rem;
         }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .timeline-highlight {
+            background: var(--beige);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
         }
 
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Projects Section - Academic Focus */
+        .projects {
+            padding: 6rem 2rem;
+            background: var(--beige-gradient);
+            position: relative;
         }
 
-        /* Responsive */
+        .projects::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--mint) 0%, var(--sage-green) 50%, var(--primary-green) 100%);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+            justify-items: center;
+        }
+
+        .project-card {
+            background: var(--white);
+            border-radius: 25px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            animation: float 6s ease-in-out infinite;
+            border: 2px solid var(--mint);
+            box-shadow: 0 15px 50px rgba(45, 95, 63, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0s; }
+        .project-card:nth-child(2) { animation-delay: 1s; }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 80px rgba(45, 95, 63, 0.2);
+            border-color: var(--primary-green);
+        }
+
+        .project-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--mint) 0%, var(--sage-green) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            color: var(--white);
+            box-shadow: 0 10px 30px rgba(45, 95, 63, 0.2);
+        }
+
+        .project-title {
+            font-size: 1.6rem;
+            color: var(--dark-brown);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .project-description {
+            color: var(--gray);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .project-results {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .result {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-green);
+            font-weight: 700;
+            background: var(--beige);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+
+        /* Education Section */
+        .education {
+            padding: 6rem 2rem;
+            background: var(--cream);
+        }
+
+        .education-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            justify-items: center;
+        }
+
+        .edu-card {
+            background: linear-gradient(135deg, var(--mint) 0%, var(--sage-green) 100%);
+            color: var(--white);
+            padding: 2.5rem;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .edu-card::after {
+            content: '';
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+            border-radius: 50%;
+        }
+
+        .edu-degree {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .edu-school {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            opacity: 0.95;
+        }
+
+        .edu-date {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 2rem;
+            background: var(--primary-green);
+            color: var(--cream);
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            color: var(--cream);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .contact-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-brown);
+            color: var(--cream);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr;
+            nav {
+                top: 10px;
+                left: 10px;
+                right: 10px;
+                transform: none;
+                padding: 0.5rem;
             }
 
-            .category-grid {
-                grid-template-columns: 1fr;
+            .nav-container {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
             }
 
-            .dashboard-main-title {
-                font-size: 2rem;
+            .nav-link {
+                font-size: 0.85rem;
+                padding: 0.3rem 0.6rem;
             }
 
-            .metric-box {
-                padding: 1rem;
+            .hero {
+                padding-top: 100px;
             }
 
-            .metric-value {
-                font-size: 2rem;
+            .hero-container {
+                padding: 2rem 1rem;
             }
 
-            .segment-chart {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .hero-cta {
                 flex-direction: column;
-                gap: 1.5rem;
+                align-items: center;
+            }
+
+            .btn {
+                width: 250px;
+                justify-content: center;
+            }
+
+            .tech-stack-container {
+                padding: 2rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .education-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-link {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="nav-header">
-        <div class="nav-content">
-            <a href="index.html" class="back-btn">
-                ← Back to Portfolio
-            </a>
-            <div class="dashboard-title-nav">E-Commerce Performance Tracker</div>
-            <div style="width: 120px;"></div>
+    <nav>
+        <div class="nav-container">
+            <a href="#home" class="nav-link active">Home</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#dashboards" class="nav-link">Dashboards</a>
+            <a href="#experience" class="nav-link">Experience</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#contact" class="nav-link">Contact</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="dashboard-hero">
-        <div class="hero-content">
-            <h1 class="dashboard-main-title">E-Commerce Performance Tracker</h1>
-            <p class="dashboard-subtitle">Real-time transaction analysis & data-driven pricing optimization</p>
-            
-            <div class="key-metrics">
-                <div class="metric-box">
-                    <div class="metric-value">500K+</div>
-                    <div class="metric-label">Transactions Analyzed</div>
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    I'm <span class="highlight">Naisargi</span>,<br>
+                    Your Data Whisperer
+                </h1>
+                <p class="hero-subtitle">Business Analyst & Dashboard Virtuoso</p>
+                <p class="hero-description">
+                    I transform chaotic spreadsheets into beautiful insights and make databases 
+                    sing harmonious SQL queries. Currently teaching AI how to think like a business analyst.
+                </p>
+                <div class="hero-cta">
+                    <a href="#contact" class="btn btn-primary">
+                        Let's Create Magic
+                    </a>
+                    <a href="#dashboards" class="btn btn-outline">
+                        See My Work
+                    </a>
                 </div>
-                <div class="metric-box">
-                    <div class="metric-value">50+</div>
-                    <div class="metric-label">Product Lines</div>
-                </div>
-                <div class="metric-box">
-                    <div class="metric-value">45+</div>
-                    <div class="metric-label">Product Launches</div>
-                </div>
-                <div class="metric-box">
-                    <div class="metric-value">2.5%</div>
-                    <div class="metric-label">Profit Growth</div>
-                </div>
-                <div class="metric-box">
-                    <div class="metric-value">5%</div>
-                    <div class="metric-label">Market Share Capture</div>
+                
+                <div class="hero-showcase">
+                    <div class="showcase-title">Tech Stack</div>
+                    
+                    <div class="tech-stack-container">
+                        <div class="skills-grid">
+                            <div class="skill-item">
+                                <div class="skill-icon">📊</div>
+                                <span class="skill-name">Python</span>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">🗄️</div>
+                                <span class="skill-name">MySQL</span>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">☁️</div>
+                                <span class="skill-name">AWS</span>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">📈</div>
+                                <span class="skill-name">Tableau</span>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">📉</div>
+                                <span class="skill-name">Power BI</span>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">🔄</div>
+                                <span class="skill-name">Salesforce</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Main Content -->
-    <div class="dashboard-content">
-        <!-- Dashboard Visualizations -->
-        <div class="dashboard-grid">
-            <!-- Top Product Performance -->
-            <div class="dashboard-card">
-                <div class="card-header">
-                    <h2 class="card-title">Top Product Performance</h2>
-                    <span class="card-badge">Live Data</span>
-                </div>
-                
-                <table class="product-table">
-                    <thead>
-                        <tr>
-                            <th>Product</th>
-                            <th>Revenue</th>
-                            <th>Units Sold</th>
-                            <th>Trend</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Premium Pasta Collection</td>
-                            <td>$125,450</td>
-                            <td>8,450</td>
-                            <td><span class="trend-badge trend-up">↑ 12%</span></td>
-                        </tr>
-                        <tr>
-                            <td>Organic Spice Bundle</td>
-                            <td>$98,320</td>
-                            <td>6,230</td>
-                            <td><span class="trend-badge trend-up">↑ 8%</span></td>
-                        </tr>
-                        <tr>
-                            <td>Gourmet Sauce Range</td>
-                            <td>$87,650</td>
-                            <td>5,890</td>
-                            <td><span class="trend-badge trend-stable">→ 0%</span></td>
-                        </tr>
-                        <tr>
-                            <td>Artisan Bread Mix</td>
-                            <td>$76,200</td>
-                            <td>4,320</td>
-                            <td><span class="trend-badge trend-up">↑ 15%</span></td>
-                        </tr>
-                        <tr>
-                            <td>Exotic Tea Collection</td>
-                            <td>$65,430</td>
-                            <td>3,780</td>
-                            <td><span class="trend-badge trend-down">↓ 3%</span></td>
-                        </tr>
-                    </tbody>
-                </table>
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Get to Know Me</span>
+                <h2 class="section-title">The Story Behind the Spreadsheets</h2>
             </div>
-
-            <!-- Monthly Revenue Trend -->
-            <div class="dashboard-card">
-                <div class="card-header">
-                    <h2 class="card-title">Monthly Revenue Trend</h2>
-                    <span class="card-badge">2024 YTD</span>
-                </div>
-                
-                <div class="revenue-chart">
-                    <div class="revenue-bar" style="height: 60%;">
-                        $2.1M
-                        <span>Jan</span>
-                    </div>
-                    <div class="revenue-bar" style="height: 65%;">
-                        $2.3M
-                        <span>Feb</span>
-                    </div>
-                    <div class="revenue-bar" style="height: 70%;">
-                        $2.5M
-                        <span>Mar</span>
-                    </div>
-                    <div class="revenue-bar" style="height: 75%;">
-                        $2.7M
-                        <span>Apr</span>
-                    </div>
-                    <div class="revenue-bar" style="height: 80%;">
-                        $2.9M
-                        <span>May</span>
-                    </div>
-                    <div class="revenue-bar" style="height: 85%;">
-                        $3.1M
-                        <span>Jun</span>
-                    </div>
-                    <div class="revenue-bar" style="height: 90%;">
-                        $3.3M
-                        <span>Jul</span>
-                    </div>
-                    <div class="revenue-bar" style="height: 88%;">
-                        $3.2M
-                        <span>Aug</span>
+            <div class="about-grid">
+                <div class="about-content">
+                    <h3>Business Analytics Expert with a Global Perspective</h3>
+                    <p>
+                        Electronics engineer turned data strategist with expertise in Python, SQL, Tableau, and AWS. 
+                        I've delivered $500K in cost savings, improved reporting efficiency by 96%, and driven 2.5% 
+                        profitability growth across e-commerce and supply chain sectors. NC State Masters graduate 
+                        currently working in AI development.
+                    </p>
+                    <div class="fun-fact">
+                        <h4>Beyond the Data</h4>
+                        <p>Always stopping for sunset photos, mentoring international students, and reading Architectural Digest. 
+                        I find patterns everywhere – in spreadsheets, skylines, and design.</p>
                     </div>
                 </div>
-            </div>
-
-            <!-- Category Distribution -->
-            <div class="dashboard-card">
-                <div class="card-header">
-                    <h2 class="card-title">Category Performance</h2>
-                    <span class="card-badge">Q3 2024</span>
-                </div>
-                
-                <div class="category-grid">
-                    <div class="category-item">
-                        <div class="category-name">Food & Beverages</div>
-                        <div class="category-value">$485K</div>
-                        <div class="category-percentage">38% of total</div>
+                <div class="about-metrics">
+                    <div class="metric-card">
+                        <div class="metric-value">2.5%</div>
+                        <div class="metric-label">Profitability Growth Delivered</div>
                     </div>
-                    <div class="category-item">
-                        <div class="category-name">Health & Wellness</div>
-                        <div class="category-value">$320K</div>
-                        <div class="category-percentage">25% of total</div>
+                    <div class="metric-card">
+                        <div class="metric-value">18%</div>
+                        <div class="metric-label">Logistics Efficiency Boost</div>
                     </div>
-                    <div class="category-item">
-                        <div class="category-name">Home & Kitchen</div>
-                        <div class="category-value">$275K</div>
-                        <div class="category-percentage">22% of total</div>
+                    <div class="metric-card">
+                        <div class="metric-value">45+</div>
+                        <div class="metric-label">Product Launches Analyzed</div>
                     </div>
-                    <div class="category-item">
-                        <div class="category-name">Personal Care</div>
-                        <div class="category-value">$190K</div>
-                        <div class="category-percentage">15% of total</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Conversion Funnel -->
-            <div class="dashboard-card">
-                <div class="card-header">
-                    <h2 class="card-title">Conversion Funnel</h2>
-                    <span class="card-badge">This Month</span>
-                </div>
-                
-                <div class="funnel-container">
-                    <div class="funnel-step">
-                        <div class="funnel-step-bar" style="width: 100%;"></div>
-                        <span class="funnel-label">Site Visits</span>
-                        <span class="funnel-value">125,000</span>
-                    </div>
-                    <div class="funnel-step">
-                        <div class="funnel-step-bar" style="width: 80%;"></div>
-                        <span class="funnel-label">Product Views</span>
-                        <span class="funnel-value">100,000</span>
-                    </div>
-                    <div class="funnel-step">
-                        <div class="funnel-step-bar" style="width: 40%;"></div>
-                        <span class="funnel-label">Add to Cart</span>
-                        <span class="funnel-value">50,000</span>
-                    </div>
-                    <div class="funnel-step">
-                        <div class="funnel-step-bar" style="width: 25%;"></div>
-                        <span class="funnel-label">Checkout Started</span>
-                        <span class="funnel-value">31,250</span>
-                    </div>
-                    <div class="funnel-step">
-                        <div class="funnel-step-bar" style="width: 20%;"></div>
-                        <span class="funnel-label">Purchase Complete</span>
-                        <span class="funnel-value">25,000</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Customer Segments -->
-            <div class="dashboard-card">
-                <div class="card-header">
-                    <h2 class="card-title">Customer Segments</h2>
-                    <span class="card-badge">Analysis</span>
-                </div>
-                
-                <div class="segment-chart">
-                    <div class="segment-circle">
-                        <div class="segment-value">35%</div>
-                        <div class="segment-label">New Customers</div>
-                    </div>
-                    <div class="segment-circle">
-                        <div class="segment-value">45%</div>
-                        <div class="segment-label">Returning</div>
-                    </div>
-                    <div class="segment-circle">
-                        <div class="segment-value">20%</div>
-                        <div class="segment-label">VIP Members</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pricing Strategy Impact -->
-            <div class="dashboard-card">
-                <div class="card-header">
-                    <h2 class="card-title">Pricing Strategy Impact</h2>
-                    <span class="card-badge">45+ Launches</span>
-                </div>
-                
-                <div class="pricing-grid">
-                    <div class="pricing-card">
-                        <div class="pricing-label">Average Price</div>
-                        <div class="pricing-value">$24.99</div>
-                        <div class="pricing-change positive">+8% optimal</div>
-                    </div>
-                    <div class="pricing-card">
-                        <div class="pricing-label">Price Elasticity</div>
-                        <div class="pricing-value">-1.2</div>
-                        <div class="pricing-change">Moderate</div>
-                    </div>
-                    <div class="pricing-card">
-                        <div class="pricing-label">Margin</div>
-                        <div class="pricing-value">42%</div>
-                        <div class="pricing-change positive">+5% YoY</div>
-                    </div>
-                    <div class="pricing-card">
-                        <div class="pricing-label">Discount Rate</div>
-                        <div class="pricing-value">15%</div>
-                        <div class="pricing-change">Optimized</div>
+                    <div class="metric-card">
+                        <div class="metric-value">3</div>
+                        <div class="metric-label">New Markets Conquered</div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- Tech Stack -->
-        <div class="dashboard-card">
-            <div class="card-header">
-                <h2 class="card-title">Technology Stack</h2>
+    <!-- Dashboard Showcase Section -->
+    <section class="dashboards" id="dashboards">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Portfolio Showcase</span>
+                <h2 class="section-title">Dashboards That Tell Stories</h2>
             </div>
-            <div class="tech-stack">
-                <span class="tech-tag">AWS QuickSight</span>
-                <span class="tech-tag">Amazon Redshift</span>
-                <span class="tech-tag">Python (Pandas, NumPy)</span>
-                <span class="tech-tag">SQL Analytics</span>
-                <span class="tech-tag">A/B Testing Framework</span>
-                <span class="tech-tag">Price Optimization ML</span>
-                <span class="tech-tag">Customer Segmentation</span>
-                <span class="tech-tag">Real-time ETL Pipeline</span>
+            <div class="dashboard-gallery">
+                <a href="supply-chain-logistics-dashboard.html" style="text-decoration: none; color: inherit;">
+                    <div class="dashboard-card">
+                        <div class="dashboard-preview">
+                            <div class="dashboard-charts">
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                            </div>
+                        </div>
+                        <div class="dashboard-info">
+                            <h3 class="dashboard-title">Supply Chain & Logistics Analytics</h3>
+                            <div class="dashboard-tech">
+                                <span class="tech-badge">Tableau</span>
+                                <span class="tech-badge">Power BI</span>
+                                <span class="tech-badge">Python</span>
+                            </div>
+                            <p class="dashboard-impact">
+                                Comprehensive supply chain monitoring with $500K savings through anomaly detection 
+                                and 18% logistics efficiency improvement.
+                            </p>
+                            <span class="dashboard-metric">
+                                $820K total impact
+                            </span>
+                            <div style="margin-top: 1rem; color: var(--primary-green); font-weight: 600; font-size: 0.9rem;">
+                                View Full Dashboard →
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="ecommerce-dashboard.html" style="text-decoration: none; color: inherit;">
+                    <div class="dashboard-card">
+                        <div class="dashboard-preview">
+                            <div class="dashboard-charts">
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                            </div>
+                        </div>
+                        <div class="dashboard-info">
+                            <h3 class="dashboard-title">E-Commerce Performance Tracker</h3>
+                            <div class="dashboard-tech">
+                                <span class="tech-badge">QuickSight</span>
+                                <span class="tech-badge">Redshift</span>
+                                <span class="tech-badge">Python</span>
+                            </div>
+                            <p class="dashboard-impact">
+                                Analyzed 500K+ transactions across 50+ product lines, enabling data-driven 
+                                pricing strategies for 45+ product launches.
+                            </p>
+                            <span class="dashboard-metric">
+                                2.5% profitability growth
+                            </span>
+                            <div style="margin-top: 1rem; color: var(--primary-green); font-weight: 600; font-size: 0.9rem;">
+                                View Full Dashboard →
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="sales-pipeline-dashboard.html" style="text-decoration: none; color: inherit;">
+                    <div class="dashboard-card">
+                        <div class="dashboard-preview">
+                            <div class="dashboard-charts">
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                            </div>
+                        </div>
+                        <div class="dashboard-info">
+                            <h3 class="dashboard-title">Sales Pipeline CRM Dashboard</h3>
+                            <div class="dashboard-tech">
+                                <span class="tech-badge">Salesforce</span>
+                                <span class="tech-badge">Power BI</span>
+                                <span class="tech-badge">SQL</span>
+                            </div>
+                            <p class="dashboard-impact">
+                                Increased sales pipeline tracking efficiency by 35% through automated reporting 
+                                and real-time performance metrics.
+                            </p>
+                            <span class="dashboard-metric">
+                                35% efficiency boost
+                            </span>
+                            <div style="margin-top: 1rem; color: var(--primary-green); font-weight: 600; font-size: 0.9rem;">
+                                View Full Dashboard →
+                            </div>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
+    </section>
 
-        <!-- Impact Section -->
-        <div class="impact-section">
-            <h2 class="impact-title">Business Impact</h2>
-            <div class="impact-grid">
-                <div class="impact-item">
-                    <div class="impact-icon">📊</div>
-                    <div class="impact-value">500K+</div>
-                    <div class="impact-description">Transactions analyzed for pricing insights</div>
+    <!-- Experience Timeline -->
+    <section class="experience" id="experience">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Career Journey</span>
+                <h2 class="section-title">Where I've Made Impact</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-line"></div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">August 2025 – Present</div>
+                        <h3 class="timeline-title">AI Apprentice Engineer</h3>
+                        <div class="timeline-company">Aperix LLC • Raleigh, NC</div>
+                        <div class="timeline-highlight">
+                            Bridging business needs with AI development - teaching machines to think like analysts
+                        </div>
+                    </div>
                 </div>
-                <div class="impact-item">
-                    <div class="impact-icon">💰</div>
-                    <div class="impact-value">2.5%</div>
-                    <div class="impact-description">Profitability growth through optimization</div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">August 2024 – December 2024</div>
+                        <h3 class="timeline-title">Business Analyst Intern</h3>
+                        <div class="timeline-company">Volvo Group • Raleigh, NC</div>
+                        <div class="timeline-highlight">
+                            Saved $500K through anomaly detection • Made reports 96% faster
+                        </div>
+                    </div>
                 </div>
-                <div class="impact-item">
-                    <div class="impact-icon">🚀</div>
-                    <div class="impact-value">45+</div>
-                    <div class="impact-description">Successful product launches supported</div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">March 2024 – December 2024</div>
+                        <h3 class="timeline-title">Business Analyst</h3>
+                        <div class="timeline-company">Consult Your Community NC • Raleigh, NC</div>
+                        <div class="timeline-highlight">
+                            Boosted sales tracking by 35% • Built executive dashboards that actually get used
+                        </div>
+                    </div>
                 </div>
-                <div class="impact-item">
-                    <div class="impact-icon">📈</div>
-                    <div class="impact-value">5%</div>
-                    <div class="impact-description">Market share captured in new segments</div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">January 2021 - August 2023</div>
+                        <h3 class="timeline-title">Business Analyst</h3>
+                        <div class="timeline-company">Urban Platter • Mumbai, India</div>
+                        <div class="timeline-highlight">
+                            2.5% profit growth • 5% market share capture • Conquered 3 new markets
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Academic Excellence</span>
+                <h2 class="section-title">Projects That Matter</h2>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">🌍</div>
+                    <h3 class="project-title">Internationally, Yours</h3>
+                    <p class="project-description">
+                        Built a platform for international students with a $200K revenue potential. 
+                        Because navigating a new country shouldn't feel like solving a Rubik's cube blindfolded.
+                    </p>
+                    <div class="project-results">
+                        <span class="result">
+                            💰 $200K Revenue
+                        </span>
+                        <span class="result">
+                            ✅ Under Budget
+                        </span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-icon">🏗️</div>
+                    <h3 class="project-title">Lighthouse Relocation</h3>
+                    <p class="project-description">
+                        Managed a $12M infrastructure project analysis that found 15% cost savings. 
+                        Turns out, you can teach an old lighthouse new tricks!
+                    </p>
+                    <div class="project-results">
+                        <span class="result">
+                            📉 15% Savings
+                        </span>
+                        <span class="result">
+                            ⚡ 25% Faster
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="education" id="education">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Academic Background</span>
+                <h2 class="section-title">Where I Learned to Love Data</h2>
+            </div>
+            <div class="education-cards">
+                <div class="edu-card">
+                    <div class="edu-degree">Masters in Engineering Management</div>
+                    <div class="edu-school">North Carolina State University</div>
+                    <div class="edu-date">August 2023 - May 2025 (Graduated)</div>
+                </div>
+                <div class="edu-card">
+                    <div class="edu-degree">B.Tech in Electronics Engineering</div>
+                    <div class="edu-school">Mumbai University</div>
+                    <div class="edu-date">August 2019 - June 2023</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-content">
+            <h2 class="contact-title">Let's Build Something Amazing</h2>
+            <p class="contact-subtitle">
+                Ready to turn your data chaos into clarity? I'm just a message away!
+            </p>
+            <div class="contact-links">
+                <a href="mailto:naisargidoshi16@gmail.com" class="contact-link">
+                    📧 naisargidoshi16@gmail.com
+                </a>
+                <a href="tel:+19193456638" class="contact-link">
+                    📞 +1 (919) 345-6638
+                </a>
+                <a href="https://linkedin.com/in/naisargidoshi16" class="contact-link" target="_blank">
+                    💼 LinkedIn
+                </a>
+                <a href="#" class="contact-link">
+                    📍 Raleigh, NC
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Naisargi Doshi • Turning Data Into Decisions • Open to Relocate</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Active nav on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'all 0.6s ease';
+            observer.observe(section);
+        });
+    </script>
 </body>
 </html>
