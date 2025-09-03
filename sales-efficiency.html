@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Pipeline CRM Dashboard | Naisargi Doshi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2d5f3f;
+            --light-green: #4a8060;
+            --sage-green: #87a96b;
+            --mint: #a8d5ba;
+            --beige: #f5e6d3;
+            --light-beige: #faf6f0;
+            --cream: #fffef9;
+            --dark-brown: #3e2723;
+            --gray: #6b6b6b;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, #2d5f3f 0%, #87a96b 100%);
+            --blue-accent: #4a90e2;
+            --orange-accent: #ff9f40;
+            --purple-accent: #8b5cf6;
+            --pink-accent: #ec4899;
+            --teal-accent: #14b8a6;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--cream);
+            color: var(--dark-brown);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .nav-header {
+            background: var(--white);
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-5px);
+        }
+
+        .dashboard-title-nav {
+            font-size: 1.2rem;
+            color: var(--dark-brown);
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .dashboard-hero {
+            background: var(--gradient);
+            padding: 4rem 2rem;
+            color: var(--white);
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .dashboard-main-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .dashboard-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+        }
+
+        .key-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .metric-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideUp 0.6s ease;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        .dashboard-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .dashboard-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--beige);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: var(--dark-brown);
+            font-weight: 600;
+        }
+
+        .card-badge {
+            background: var(--mint);
+            color: var(--primary-green);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Opportunities Table */
+        .opportunities-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .opportunities-table th {
+            background: var(--light-beige);
+            color: var(--dark-brown);
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .opportunities-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--beige);
+            color: var(--gray);
+        }
+
+        .opportunities-table tr:hover {
+            background: var(--cream);
+        }
+
+        .stage-badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .stage-prospect { background: #e0f2fe; color: #0369a1; }
+        .stage-qualified { background: #fef3c7; color: #d97706; }
+        .stage-proposal { background: #ede9fe; color: #7c3aed; }
+        .stage-negotiation { background: #fee2e2; color: #dc2626; }
+        .stage-closed { background: #dcfce7; color: #16a34a; }
+
+        /* Pipeline Stages */
+        .pipeline-stages {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .stage-card {
+            flex: 1;
+            background: var(--cream);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stage-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .stage-card:nth-child(1)::before { background: var(--blue-accent); }
+        .stage-card:nth-child(2)::before { background: var(--orange-accent); }
+        .stage-card:nth-child(3)::before { background: var(--purple-accent); }
+        .stage-card:nth-child(4)::before { background: var(--pink-accent); }
+        .stage-card:nth-child(5)::before { background: var(--teal-accent); }
+
+        .stage-name {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .stage-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark-brown);
+        }
+
+        .stage-count {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-top: 0.3rem;
+        }
+
+        /* Sales Activity */
+        .activity-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            height: 180px;
+            padding: 1rem;
+            background: var(--cream);
+            border-radius: 10px;
+        }
+
+        .activity-bar {
+            flex: 1;
+            margin: 0 0.25rem;
+            background: linear-gradient(180deg, var(--teal-accent) 0%, var(--blue-accent) 100%);
+            border-radius: 5px 5px 0 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0.5rem;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.85rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .activity-bar:hover {
+            transform: scale(1.05);
+        }
+
+        .activity-bar span {
+            position: absolute;
+            bottom: -25px;
+            color: var(--gray);
+            font-size: 0.75rem;
+        }
+
+        /* Win Rate Analysis */
+        .winrate-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .winrate-item {
+            background: var(--cream);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .winrate-percentage {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .winrate-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        /* Sales Forecast */
+        .forecast-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .forecast-month {
+            background: var(--cream);
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .forecast-month-name {
+            font-weight: 500;
+            color: var(--dark-brown);
+        }
+
+        .forecast-values {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .forecast-item {
+            text-align: right;
+        }
+
+        .forecast-label {
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+
+        .forecast-amount {
+            font-weight: 600;
+            color: var(--primary-green);
+        }
+
+        /* Team Performance */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .team-member-card {
+            background: var(--cream);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .team-member-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .member-name {
+            font-weight: 600;
+            color: var(--dark-brown);
+            margin-bottom: 0.5rem;
+        }
+
+        .member-metric {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .member-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        /* Lead Sources */
+        .source-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .source-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .source-label {
+            width: 120px;
+            font-weight: 500;
+            color: var(--dark-brown);
+        }
+
+        .source-bar-container {
+            flex: 1;
+            height: 25px;
+            background: var(--cream);
+            border-radius: 50px;
+            overflow: hidden;
+        }
+
+        .source-bar-fill {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 0.75rem;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.75rem;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .tech-tag {
+            background: var(--beige);
+            color: var(--primary-green);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Impact Section */
+        .impact-section {
+            background: var(--light-beige);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-top: 3rem;
+        }
+
+        .impact-title {
+            font-size: 2rem;
+            color: var(--dark-brown);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .impact-item {
+            text-align: center;
+        }
+
+        .impact-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .impact-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .impact-description {
+            color: var(--gray);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pipeline-stages {
+                flex-direction: column;
+            }
+
+            .winrate-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-main-title {
+                font-size: 2rem;
+            }
+
+            .metric-box {
+                padding: 1rem;
+            }
+
+            .metric-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-header">
+        <div class="nav-content">
+            <a href="index.html" class="back-btn">
+                ← Back to Portfolio
+            </a>
+            <div class="dashboard-title-nav">Sales Pipeline CRM Dashboard</div>
+            <div style="width: 120px;"></div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="dashboard-hero">
+        <div class="hero-content">
+            <h1 class="dashboard-main-title">Sales Pipeline CRM Dashboard</h1>
+            <p class="dashboard-subtitle">Real-time pipeline tracking with automated reporting & performance metrics</p>
+            
+            <div class="key-metrics">
+                <div class="metric-box">
+                    <div class="metric-value">35%</div>
+                    <div class="metric-label">Efficiency Increase</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-value">$4.2M</div>
+                    <div class="metric-label">Pipeline Value</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-value">68%</div>
+                    <div class="metric-label">Win Rate</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-value">23 days</div>
+                    <div class="metric-label">Avg Sales Cycle</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-value">156</div>
+                    <div class="metric-label">Active Opportunities</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="dashboard-content">
+        <!-- Dashboard Visualizations -->
+        <div class="dashboard-grid">
+            <!-- Top Opportunities -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Top Opportunities</h2>
+                    <span class="card-badge">This Quarter</span>
+                </div>
+                
+                <table class="opportunities-table">
+                    <thead>
+                        <tr>
+                            <th>Account</th>
+                            <th>Value</th>
+                            <th>Stage</th>
+                            <th>Close Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Global Tech Corp</td>
+                            <td>$450,000</td>
+                            <td><span class="stage-badge stage-negotiation">Negotiation</span></td>
+                            <td>Oct 15</td>
+                        </tr>
+                        <tr>
+                            <td>Innovate Solutions</td>
+                            <td>$325,000</td>
+                            <td><span class="stage-badge stage-proposal">Proposal</span></td>
+                            <td>Oct 28</td>
+                        </tr>
+                        <tr>
+                            <td>Enterprise Systems</td>
+                            <td>$280,000</td>
+                            <td><span class="stage-badge stage-qualified">Qualified</span></td>
+                            <td>Nov 10</td>
+                        </tr>
+                        <tr>
+                            <td>Digital Dynamics</td>
+                            <td>$220,000</td>
+                            <td><span class="stage-badge stage-negotiation">Negotiation</span></td>
+                            <td>Oct 20</td>
+                        </tr>
+                        <tr>
+                            <td>NextGen Analytics</td>
+                            <td>$195,000</td>
+                            <td><span class="stage-badge stage-closed">Closed Won</span></td>
+                            <td>Sep 30</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pipeline Stages -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Pipeline Stages</h2>
+                    <span class="card-badge">Current Status</span>
+                </div>
+                
+                <div class="pipeline-stages">
+                    <div class="stage-card">
+                        <div class="stage-name">Prospect</div>
+                        <div class="stage-value">$850K</div>
+                        <div class="stage-count">42 deals</div>
+                    </div>
+                    <div class="stage-card">
+                        <div class="stage-name">Qualified</div>
+                        <div class="stage-value">$1.2M</div>
+                        <div class="stage-count">35 deals</div>
+                    </div>
+                    <div class="stage-card">
+                        <div class="stage-name">Proposal</div>
+                        <div class="stage-value">$980K</div>
+                        <div class="stage-count">28 deals</div>
+                    </div>
+                    <div class="stage-card">
+                        <div class="stage-name">Negotiation</div>
+                        <div class="stage-value">$750K</div>
+                        <div class="stage-count">18 deals</div>
+                    </div>
+                    <div class="stage-card">
+                        <div class="stage-name">Closed Won</div>
+                        <div class="stage-value">$420K</div>
+                        <div class="stage-count">33 deals</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sales Activity -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Weekly Sales Activity</h2>
+                    <span class="card-badge">Team Performance</span>
+                </div>
+                
+                <div class="activity-chart">
+                    <div class="activity-bar" style="height: 60%;">
+                        45
+                        <span>Calls</span>
+                    </div>
+                    <div class="activity-bar" style="height: 80%;">
+                        62
+                        <span>Emails</span>
+                    </div>
+                    <div class="activity-bar" style="height: 70%;">
+                        28
+                        <span>Meetings</span>
+                    </div>
+                    <div class="activity-bar" style="height: 50%;">
+                        15
+                        <span>Demos</span>
+                    </div>
+                    <div class="activity-bar" style="height: 40%;">
+                        12
+                        <span>Proposals</span>
+                    </div>
+                    <div class="activity-bar" style="height: 85%;">
+                        8
+                        <span>Closed</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Win Rate Analysis -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Win Rate Analysis</h2>
+                    <span class="card-badge">YTD</span>
+                </div>
+                
+                <div class="winrate-grid">
+                    <div class="winrate-item">
+                        <div class="winrate-percentage">68%</div>
+                        <div class="winrate-label">Overall Win Rate</div>
+                    </div>
+                    <div class="winrate-item">
+                        <div class="winrate-percentage">45%</div>
+                        <div class="winrate-label">Competitive Win Rate</div>
+                    </div>
+                    <div class="winrate-item">
+                        <div class="winrate-percentage">$125K</div>
+                        <div class="winrate-label">Avg Deal Size</div>
+                    </div>
+                    <div class="winrate-item">
+                        <div class="winrate-percentage">23</div>
+                        <div class="winrate-label">Days to Close</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sales Forecast -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Sales Forecast</h2>
+                    <span class="card-badge">Next 3 Months</span>
+                </div>
+                
+                <div class
+                  <div class="forecast-timeline">
+                    <div class="forecast-month">
+                        <span class="forecast-month-name">October</span>
+                        <div class="forecast-values">
+                            <div class="forecast-item">
+                                <div class="forecast-label">Expected</div>
+                                <div class="forecast-amount">$1.2M</div>
+                            </div>
+                            <div class="forecast-item">
+                                <div class="forecast-label">Best Case</div>
+                                <div class="forecast-amount">$1.5M</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="forecast-month">
+                        <span class="forecast-month-name">November</span>
+                        <div class="forecast-values">
+                            <div class="forecast-item">
+                                <div class="forecast-label">Expected</div>
+                                <div class="forecast-amount">$980K</div>
+                            </div>
+                            <div class="forecast-item">
+                                <div class="forecast-label">Best Case</div>
+                                <div class="forecast-amount">$1.3M</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="forecast-month">
+                        <span class="forecast-month-name">December</span>
+                        <div class="forecast-values">
+                            <div class="forecast-item">
+                                <div class="forecast-label">Expected</div>
+                                <div class="forecast-amount">$1.4M</div>
+                            </div>
+                            <div class="forecast-item">
+                                <div class="forecast-label">Best Case</div>
+                                <div class="forecast-amount">$1.8M</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Performance -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Team Performance</h2>
+                    <span class="card-badge">Top Performers</span>
+                </div>
+                
+                <div class="team-grid">
+                    <div class="team-member-card">
+                        <div class="member-name">Sarah Johnson</div>
+                        <div class="member-metric">$890K</div>
+                        <div class="member-label">Closed YTD</div>
+                    </div>
+                    <div class="team-member-card">
+                        <div class="member-name">Michael Chen</div>
+                        <div class="member-metric">$750K</div>
+                        <div class="member-label">Closed YTD</div>
+                    </div>
+                    <div class="team-member-card">
+                        <div class="member-name">Emily Davis</div>
+                        <div class="member-metric">$680K</div>
+                        <div class="member-label">Closed YTD</div>
+                    </div>
+                    <div class="team-member-card">
+                        <div class="member-name">James Wilson</div>
+                        <div class="member-metric">$620K</div>
+                        <div class="member-label">Closed YTD</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lead Sources -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Lead Sources</h2>
+                    <span class="card-badge">Performance</span>
+                </div>
+                
+                <div class="source-chart">
+                    <div class="source-item">
+                        <span class="source-label">Website</span>
+                        <div class="source-bar-container">
+                            <div class="source-bar-fill" style="width: 35%;">35%</div>
+                        </div>
+                    </div>
+                    <div class="source-item">
+                        <span class="source-label">Referrals</span>
+                        <div class="source-bar-container">
+                            <div class="source-bar-fill" style="width: 28%;">28%</div>
+                        </div>
+                    </div>
+                    <div class="source-item">
+                        <span class="source-label">Events</span>
+                        <div class="source-bar-container">
+                            <div class="source-bar-fill" style="width: 20%;">20%</div>
+                        </div>
+                    </div>
+                    <div class="source-item">
+                        <span class="source-label">Social Media</span>
+                        <div class="source-bar-container">
+                            <div class="source-bar-fill" style="width: 12%;">12%</div>
+                        </div>
+                    </div>
+                    <div class="source-item">
+                        <span class="source-label">Cold Outreach</span>
+                        <div class="source-bar-container">
+                            <div class="source-bar-fill" style="width: 5%;">5%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tech Stack -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h2 class="card-title">Technology Stack</h2>
+            </div>
+            <div class="tech-stack">
+                <span class="tech-tag">Salesforce CRM</span>
+                <span class="tech-tag">Power BI</span>
+                <span class="tech-tag">SQL Server</span>
+                <span class="tech-tag">Automated Reporting</span>
+                <span class="tech-tag">Lead Scoring ML</span>
+                <span class="tech-tag">Email Integration</span>
+                <span class="tech-tag">API Connectors</span>
+                <span class="tech-tag">Real-time Sync</span>
+            </div>
+        </div>
+
+        <!-- Impact Section -->
+        <div class="impact-section">
+            <h2 class="impact-title">Business Impact</h2>
+            <div class="impact-grid">
+                <div class="impact-item">
+                    <div class="impact-icon">⚡</div>
+                    <div class="impact-value">35%</div>
+                    <div class="impact-description">Increase in sales tracking efficiency</div>
+                </div>
+                <div class="impact-item">
+                    <div class="impact-icon">📊</div>
+                    <div class="impact-value">$4.2M</div>
+                    <div class="impact-description">Total pipeline value managed</div>
+                </div>
+                <div class="impact-item">
+                    <div class="impact-icon">🎯</div>
+                    <div class="impact-value">68%</div>
+                    <div class="impact-description">Win rate achievement</div>
+                </div>
+                <div class="impact-item">
+                    <div class="impact-icon">⏱️</div>
+                    <div class="impact-value">50%</div>
+                    <div class="impact-description">Reduction in reporting time</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
