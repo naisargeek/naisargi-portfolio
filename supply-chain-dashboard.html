@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supply Chain Analytics Dashboard | Naisargi Doshi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2d5f3f;
+            --light-green: #4a8060;
+            --sage-green: #87a96b;
+            --mint: #a8d5ba;
+            --beige: #f5e6d3;
+            --light-beige: #faf6f0;
+            --cream: #fffef9;
+            --dark-brown: #3e2723;
+            --gray: #6b6b6b;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, #2d5f3f 0%, #87a96b 100%);
+            --blue-accent: #4a90e2;
+            --orange-accent: #ff9f40;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--cream);
+            color: var(--dark-brown);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .nav-header {
+            background: var(--white);
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-5px);
+        }
+
+        .dashboard-title-nav {
+            font-size: 1.2rem;
+            color: var(--dark-brown);
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .dashboard-hero {
+            background: var(--gradient);
+            padding: 4rem 2rem;
+            color: var(--white);
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .dashboard-main-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .dashboard-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+        }
+
+        .key-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .metric-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideUp 0.6s ease;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        .dashboard-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .dashboard-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--beige);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: var(--dark-brown);
+            font-weight: 600;
+        }
+
+        .card-badge {
+            background: var(--mint);
+            color: var(--primary-green);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Supplier Compliance Table */
+        .compliance-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .compliance-table th {
+            background: var(--light-beige);
+            color: var(--dark-brown);
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .compliance-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--beige);
+            color: var(--gray);
+        }
+
+        .compliance-table tr:hover {
+            background: var(--cream);
+        }
+
+        .anomaly-flag {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .anomaly-yes {
+            background: #fee;
+            color: #d00;
+        }
+
+        .anomaly-no {
+            background: #efe;
+            color: #080;
+        }
+
+        .compliance-score {
+            font-weight: 600;
+            color: var(--dark-brown);
+        }
+
+        .total-savings {
+            font-weight: 600;
+            color: var(--primary-green);
+        }
+
+        /* Tree Map Visualization */
+        .treemap-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            height: 200px;
+        }
+
+        .treemap-section {
+            border-radius: 10px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .treemap-section:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .treemap-yes {
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+        }
+
+        .treemap-no {
+            background: linear-gradient(135deg, #7b8c9a 0%, #5a6978 100%);
+        }
+
+        .treemap-label {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .treemap-suppliers {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .treemap-subgrid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
+        .treemap-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* Logistics Optimization */
+        .logistics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .route-list {
+            list-style: none;
+        }
+
+        .route-item {
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            background: var(--cream);
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .route-name {
+            font-weight: 500;
+            color: var(--dark-brown);
+        }
+
+        .route-status {
+            font-size: 1.2rem;
+        }
+
+        .efficiency-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 150px;
+            padding: 1rem;
+            background: var(--cream);
+            border-radius: 10px;
+        }
+
+        .efficiency-bar {
+            width: 40px;
+            background: var(--gradient);
+            border-radius: 5px 5px 0 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0.5rem;
+            color: var(--white);
+            font-weight: 600;
+            position: relative;
+        }
+
+        .efficiency-bar span {
+            position: absolute;
+            bottom: -25px;
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        /* Workflow Timeline Chart */
+        .timeline-chart {
+            padding: 2rem 1rem;
+            background: var(--cream);
+            border-radius: 10px;
+            position: relative;
+            height: 200px;
+        }
+
+        .timeline-line-chart {
+            position: relative;
+            height: 100%;
+        }
+
+        .chart-line {
+            stroke: var(--orange-accent);
+            stroke-width: 3;
+            fill: none;
+        }
+
+        .chart-area {
+            fill: var(--orange-accent);
+            opacity: 0.1;
+        }
+
+        .month-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            padding: 0 1rem;
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .tech-tag {
+            background: var(--beige);
+            color: var(--primary-green);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Impact Section */
+        .impact-section {
+            background: var(--light-beige);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-top: 3rem;
+        }
+
+        .impact-title {
+            font-size: 2rem;
+            color: var(--dark-brown);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .impact-item {
+            text-align: center;
+        }
+
+        .impact-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .impact-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .impact-description {
+            color: var(--gray);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .logistics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-main-title {
+                font-size: 2rem;
+            }
+
+            .metric-box {
+                padding: 1rem;
+            }
+
+            .metric-value {
+                font-size: 2rem;
+            }
+
+            .treemap-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-header">
+        <div class="nav-content">
+            <a href="index.html" class="back-btn">
+                ← Back to Portfolio
+            </a>
+            <div class="dashboard-title-nav">Supply Chain Analytics Dashboard</div>
+            <div style="width: 120px;"></div> <!-- Spacer for centering -->
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="dashboard-hero">
+        <div class="hero-content">
+            <h1 class="dashboard-main-title">Supply Chain Analytics Dashboard</h1>
+            <p class="dashboard-subtitle">Real-time supplier compliance monitoring & logistics optimization</p>
+            
+            <div class="key-metrics">
+                <div class="metric-box">
+                    <div class="metric-value">$500K</div>
+                    <div class="metric-label">Annual Savings Generated</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-value">96%</div>
+                    <div class="metric-label">Faster Reporting</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-value">18%</div>
+                    <div class="metric-label">Logistics Efficiency Gain</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-value">5</div>
+                    <div class="metric-label">Suppliers Monitored</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="dashboard-content">
+        <!-- Dashboard Visualizations -->
+        <div class="dashboard-grid">
+            <!-- Supplier Compliance Risk -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Supplier Compliance Risk</h2>
+                    <span class="card-badge">Real-time Monitoring</span>
+                </div>
+                
+                <table class="compliance-table">
+                    <thead>
+                        <tr>
+                            <th>Anomaly Flag</th>
+                            <th>Supplier</th>
+                            <th>Compliance Score</th>
+                            <th>Total Savings</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="anomaly-flag anomaly-no">No</span></td>
+                            <td>Breaher Rogers</td>
+                            <td class="compliance-score">24</td>
+                            <td class="total-savings">$150,000</td>
+                        </tr>
+                        <tr>
+                            <td><span class="anomaly-flag anomaly-no">No</span></td>
+                            <td>Rogers</td>
+                            <td class="compliance-score">25</td>
+                            <td class="total-savings">$50,000</td>
+                        </tr>
+                        <tr>
+                            <td><span class="anomaly-flag anomaly-yes">Yes</span></td>
+                            <td>Audadia</td>
+                            <td class="compliance-score">41</td>
+                            <td class="total-savings">$100,000</td>
+                        </tr>
+                        <tr>
+                            <td><span class="anomaly-flag anomaly-yes">Yes</span></td>
+                            <td>Bulimart</td>
+                            <td class="compliance-score">30</td>
+                            <td class="total-savings">$160,000</td>
+                        </tr>
+                        <tr>
+                            <td><span class="anomaly-flag anomaly-no">No</span></td>
+                            <td>TriMax</td>
+                            <td class="compliance-score">10</td>
+                            <td class="total-savings">$90,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Supplier Risk Distribution -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Risk Distribution</h2>
+                    <span class="card-badge">Treemap View</span>
+                </div>
+                
+                <div class="treemap-container">
+                    <div class="treemap-section treemap-yes">
+                        <div class="treemap-label">Yes - Anomaly Detected</div>
+                        <div class="treemap-subgrid">
+                            <div class="treemap-item">Audadia</div>
+                            <div class="treemap-item">Bulimart</div>
+                        </div>
+                    </div>
+                    <div class="treemap-section treemap-no">
+                        <div class="treemap-label">No Anomaly</div>
+                        <div class="treemap-subgrid">
+                            <div class="treemap-item">Rogers</div>
+                            <div class="treemap-item">Breaher</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Logistics Optimization -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Logistics Optimization</h2>
+                    <span class="card-badge">Route Analysis</span>
+                </div>
+                
+                <div class="logistics-grid">
+                    <div>
+                        <h3 style="margin-bottom: 1rem; color: var(--dark-brown);">Origin Routes</h3>
+                        <ul class="route-list">
+                            <li class="route-item">
+                                <span class="route-name">Seattle</span>
+                                <span class="route-status">❌</span>
+                            </li>
+                            <li class="route-item">
+                                <span class="route-name">Miami</span>
+                                <span class="route-status">⬜</span>
+                            </li>
+                            <li class="route-item">
+                                <span class="route-name">Dallas</span>
+                                <span class="route-status">➕</span>
+                            </li>
+                            <li class="route-item">
+                                <span class="route-name">Chicago</span>
+                                <span class="route-status">➕</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="margin-bottom: 1rem; color: var(--dark-brown);">Efficiency Gain %</h3>
+                        <div class="efficiency-chart">
+                            <div class="efficiency-bar" style="height: 60%;">
+                                15
+                                <span>Q1</span>
+                            </div>
+                            <div class="efficiency-bar" style="height: 70%;">
+                                18
+                                <span>Q2</span>
+                            </div>
+                            <div class="efficiency-bar" style="height: 80%;">
+                                20
+                                <span>Q3</span>
+                            </div>
+                            <div class="efficiency-bar" style="height: 85%;">
+                                22
+                                <span>Q4</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Workflow Automation -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Workflow Automation Efficiency</h2>
+                    <span class="card-badge">Time Series</span>
+                </div>
+                
+                <div class="timeline-chart">
+                    <svg width="100%" height="100%" viewBox="0 0 500 150" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#ff9f40;stop-opacity:0.3" />
+                                <stop offset="100%" style="stop-color:#ff9f40;stop-opacity:0" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M 20 100 Q 100 90 180 85 T 340 70 T 480 60" 
+                              stroke="#ff9f40" stroke-width="3" fill="none"/>
+                        <path d="M 20 100 Q 100 90 180 85 T 340 70 T 480 60 L 480 150 L 20 150 Z" 
+                              fill="url(#gradient)"/>
+                    </svg>
+                </div>
+                <div class="month-labels">
+                    <span>January</span>
+                    <span>February</span>
+                    <span>March</span>
+                    <span>April</span>
+                    <span>May</span>
+                    <span>June</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tech Stack -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h2 class="card-title">Technology Stack</h2>
+            </div>
+            <div class="tech-stack">
+                <span class="tech-tag">Tableau</span>
+                <span class="tech-tag">Python (Pandas, NumPy)</span>
+                <span class="tech-tag">AWS Redshift</span>
+                <span class="tech-tag">SQL</span>
+                <span class="tech-tag">Anomaly Detection ML</span>
+                <span class="tech-tag">Real-time Data Pipeline</span>
+            </div>
+        </div>
+
+        <!-- Impact Section -->
+        <div class="impact-section">
+            <h2 class="impact-title">Business Impact</h2>
+            <div class="impact-grid">
+                <div class="impact-item">
+                    <div class="impact-icon">💰</div>
+                    <div class="impact-value">$500K+</div>
+                    <div class="impact-description">Annual cost savings through supplier anomaly detection</div>
+                </div>
+                <div class="impact-item">
+                    <div class="impact-icon">⚡</div>
+                    <div class="impact-value">96%</div>
+                    <div class="impact-description">Reduction in report generation time</div>
+                </div>
+                <div class="impact-item">
+                    <div class="impact-icon">📈</div>
+                    <div class="impact-value">18%</div>
+                    <div class="impact-description">Improvement in logistics efficiency</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
