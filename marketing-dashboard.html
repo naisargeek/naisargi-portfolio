@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing Analytics Dashboard | Naisargi Doshi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2d5f3f;
+            --light-green: #4a8060;
+            --sage-green: #87a96b;
+            --mint: #a8d5ba;
+            --beige: #f5e6d3;
+            --light-beige: #faf6f0;
+            --cream: #fffef9;
+            --dark-brown: #3e2723;
+            --gray: #6b6b6b;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, #2d5f3f 0%, #87a96b 100%);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--cream);
+            color: var(--dark-brown);
+            line-height: 1.6;
+        }
+
+        .nav-header {
+            background: var(--white);
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .dashboard-hero {
+            background: var(--gradient);
+            padding: 4rem 2rem;
+            color: var(--white);
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .dashboard-main-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .dashboard-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+        }
+
+        .key-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .metric-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .metric-change {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-top: 0.3rem;
+        }
+
+        .dashboard-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .section-divider {
+            background: var(--light-beige);
+            padding: 2rem;
+            margin: 3rem 0 2rem;
+            text-align: center;
+            border-radius: 12px;
+        }
+
+        .section-divider h2 {
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .dashboard-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--beige);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: var(--dark-brown);
+            font-weight: 600;
+        }
+
+        .card-badge {
+            background: var(--mint);
+            color: var(--primary-green);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Data Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            background: var(--light-beige);
+            color: var(--dark-brown);
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .data-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--beige);
+            color: var(--gray);
+        }
+
+        .data-table tr:hover {
+            background: var(--cream);
+        }
+
+        /* Bar Chart */
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 200px;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .bar-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .bar {
+            width: 100%;
+            background: var(--gradient);
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .bar:hover {
+            opacity: 0.8;
+        }
+
+        .bar-label {
+            font-size: 0.75rem;
+            color: var(--gray);
+            text-align: center;
+        }
+
+        .bar-value {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-green);
+        }
+
+        /* Donut Chart */
+        .donut-chart-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .donut-chart {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+        }
+
+        .donut-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .legend-color {
+            width: 1rem;
+            height: 1rem;
+            border-radius: 3px;
+        }
+
+        .legend-text {
+            flex: 1;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .legend-value {
+            font-weight: 600;
+            color: var(--dark-brown);
+        }
+
+        /* Funnel */
+        .funnel-stage {
+            margin-bottom: 1.5rem;
+        }
+
+        .funnel-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .funnel-label {
+            font-weight: 500;
+            color: var(--dark-brown);
+        }
+
+        .funnel-percentage {
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+
+        .funnel-bar-container {
+            background: var(--beige);
+            height: 40px;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .funnel-bar {
+            background: var(--gradient);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 1rem;
+            color: white;
+            font-weight: 600;
+            transition: width 1s ease;
+        }
+
+        /* ROI Bars */
+        .roi-item {
+            margin-bottom: 1.2rem;
+        }
+
+        .roi-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.4rem;
+        }
+
+        .roi-name {
+            font-size: 0.9rem;
+            color: var(--dark-brown);
+        }
+
+        .roi-value {
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .roi-bar-bg {
+            background: var(--beige);
+            height: 24px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .roi-bar-fill {
+            background: linear-gradient(90deg, var(--primary-green), var(--sage-green));
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.8s ease;
+        }
+
+        /* Traffic Sources */
+        .traffic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .traffic-source {
+            background: var(--light-beige);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .traffic-percentage {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 0.3rem;
+        }
+
+        .traffic-name {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .footer-info {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--beige);
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-main-title {
+                font-size: 2rem;
+            }
+            .donut-chart-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-header">
+        <div class="nav-content">
+            <a href="index.html" class="back-btn">← Back to Portfolio</a>
+            <div class="dashboard-title-nav">Marketing Analytics Dashboard</div>
+            <div style="width: 120px;"></div>
+        </div>
+    </nav>
+
+    <section class="dashboard-hero">
+        <div class="hero-content">
+            <h1 class="dashboard-main-title">Marketing Analytics Dashboard</h1>
+            <p class="dashboard-subtitle">B2B Technology Marketing Performance Analysis - Q4 2024</p>
+            
+            <div class="key-metrics">
+                <div class="metric-box">
+                    <div class="metric-value">2,778</div>
+                    <div class="metric-label">Total Conversions</div>
+                    <div class="metric-change">↑ +14.3% vs Q3</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-value">641%</div>
+                    <div class="metric-label">Average ROI</div>
+                    <div class="metric-change">$864K revenue / $117K spend</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-value">6.5%</div>
+                    <div class="metric-label">Average CTR</div>
+                    <div class="metric-change">Above industry 4.2%</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-value">$42.03</div>
+                    <div class="metric-label">Cost per Lead</div>
+                    <div class="metric-change">↓ -8.2% from Q3</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="dashboard-content">
+        <!-- Campaign Performance -->
+        <div class="section-divider">
+            <h2>Campaign Performance</h2>
+            <p>Real-time campaign metrics across all marketing channels</p>
+        </div>
+
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h2 class="card-title">Top Performing Campaigns</h2>
+                <span class="card-badge">Live Data</span>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Campaign</th>
+                        <th>Conversions</th>
+                        <th>Revenue</th>
+                        <th>ROI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Content Marketing (SEO)</strong></td>
+                        <td>1,267</td>
+                        <td>$384,240</td>
+                        <td style="color: var(--primary-green); font-weight: 700;">↑ 4,217%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Email Nurture Campaign</strong></td>
+                        <td>479</td>
+                        <td>$115,440</td>
+                        <td style="color: var(--primary-green); font-weight: 700;">↑ 3,508%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Product Launch Webinar</strong></td>
+                        <td>253</td>
+                        <td>$76,890</td>
+                        <td style="color: var(--primary-green); font-weight: 700;">↑ 520%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Google Search Ads</strong></td>
+                        <td>501</td>
+                        <td>$152,040</td>
+                        <td style="color: var(--primary-green); font-weight: 700;">↑ 431%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>LinkedIn Sponsored</strong></td>
+                        <td>154</td>
+                        <td>$46,740</td>
+                        <td style="color: var(--primary-green); font-weight: 700;">↑ 151%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Industry Conference</strong></td>
+                        <td>124</td>
+                        <td>$89,280</td>
+                        <td style="color: var(--primary-green); font-weight: 700;">↑ 98%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Monthly Revenue Trend -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h2 class="card-title">Monthly Revenue Trend</h2>
+                <span class="card-badge">2024 YTD</span>
+            </div>
+            <div style="display: flex; align-items: flex-end; justify-content: space-around; height: 250px; gap: 2rem; padding: 2rem 1rem; background: var(--light-beige); border-radius: 12px;">
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%;">
+                    <div style="width: 100%; background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); border-radius: 8px 8px 0 0; height: 60%; display: flex; align-items: flex-start; justify-content: center; padding-top: 0.5rem;">
+                        <span style="color: white; font-weight: 700; font-size: 1.1rem;">$78K</span>
+                    </div>
+                    <div style="margin-top: 0.8rem; font-size: 0.9rem; color: var(--gray); font-weight: 600;">Aug</div>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%;">
+                    <div style="width: 100%; background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%); border-radius: 8px 8px 0 0; height: 75%; display: flex; align-items: flex-start; justify-content: center; padding-top: 0.5rem;">
+                        <span style="color: white; font-weight: 700; font-size: 1.1rem;">$84K</span>
+                    </div>
+                    <div style="margin-top: 0.8rem; font-size: 0.9rem; color: var(--gray); font-weight: 600;">Sep</div>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%;">
+                    <div style="width: 100%; background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%); border-radius: 8px 8px 0 0; height: 88%; display: flex; align-items: flex-start; justify-content: center; padding-top: 0.5rem;">
+                        <span style="color: white; font-weight: 700; font-size: 1.1rem;">$97K</span>
+                    </div>
+                    <div style="margin-top: 0.8rem; font-size: 0.9rem; color: var(--gray); font-weight: 600;">Oct</div>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%;">
+                    <div style="width: 100%; background: linear-gradient(135deg, #2d5f3f 0%, #10b981 100%); border-radius: 8px 8px 0 0; height: 100%; display: flex; align-items: flex-start; justify-content: center; padding-top: 0.5rem;">
+                        <span style="color: white; font-weight: 700; font-size: 1.1rem;">$112K</span>
+                    </div>
+                    <div style="margin-top: 0.8rem; font-size: 0.9rem; color: var(--gray); font-weight: 600;">Nov</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Campaign ROI -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h2 class="card-title">Campaign ROI Comparison</h2>
+                <span class="card-badge">Ranked Performance</span>
+            </div>
+            <div style="padding: 1rem 0;">
+                <div class="roi-item">
+                    <div class="roi-header">
+                        <span class="roi-name">Content Marketing (SEO)</span>
+                        <span class="roi-value">4,217%</span>
+                    </div>
+                    <div class="roi-bar-bg">
+                        <div class="roi-bar-fill" style="width: 100%; background: linear-gradient(90deg, #10b981, #34d399);"></div>
+                    </div>
+                </div>
+                <div class="roi-item">
+                    <div class="roi-header">
+                        <span class="roi-name">Email Nurture Campaign</span>
+                        <span class="roi-value">3,508%</span>
+                    </div>
+                    <div class="roi-bar-bg">
+                        <div class="roi-bar-fill" style="width: 83%; background: var(--primary-green);"></div>
+                    </div>
+                </div>
+                <div class="roi-item">
+                    <div class="roi-header">
+                        <span class="roi-name">Product Launch Webinar</span>
+                        <span class="roi-value">520%</span>
+                    </div>
+                    <div class="roi-bar-bg">
+                        <div class="roi-bar-fill" style="width: 12%; background: var(--sage-green);"></div>
+                    </div>
+                </div>
+                <div class="roi-item">
+                    <div class="roi-header">
+                        <span class="roi-name">Google Search Ads</span>
+                        <span class="roi-value">431%</span>
+                    </div>
+                    <div class="roi-bar-bg">
+                        <div class="roi-bar-fill" style="width: 10%; background: var(--light-green);"></div>
+                    </div>
+                </div>
+                <div class="roi-item">
+                    <div class="roi-header">
+                        <span class="roi-name">LinkedIn Sponsored Content</span>
+                        <span class="roi-value">151%</span>
+                    </div>
+                    <div class="roi-bar-bg">
+                        <div class="roi-bar-fill" style="width: 4%; background: var(--mint);"></div>
+                    </div>
+                </div>
+                <div class="roi-item">
+                    <div class="roi-header">
+                        <span class="roi-name">Industry Conference</span>
+                        <span class="roi-value">98%</span>
+                    </div>
+                    <div class="roi-bar-bg">
+                        <div class="roi-bar-fill" style="width: 2%; background: #d6d3d1;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Traffic Sources -->
+        <div class="section-divider">
+            <h2>Traffic Sources Analysis</h2>
+            <p>Understanding where your visitors come from</p>
+        </div>
+
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h2 class="card-title">Traffic Distribution by Channel</h2>
+                <span class="card-badge">Current Month</span>
+            </div>
+            <div class="traffic-grid">
+                <div class="traffic-source" style="background: linear-gradient(135deg, #10b981 0%, #34d399 100%); color: white;">
+                    <div class="traffic-percentage">34.2%</div>
+                    <div class="traffic-name" style="color: rgba(255,255,255,0.9);">Organic Search</div>
+                </div>
+                <div class="traffic-source" style="background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%); color: white;">
+                    <div class="traffic-percentage">28.1%</div>
+                    <div class="traffic-name" style="color: rgba(255,255,255,0.9);">Paid Search</div>
+                </div>
+                <div class="traffic-source" style="background: var(--sage-green); color: white;">
+                    <div class="traffic-percentage">18.0%</div>
+                    <div class="traffic-name" style="color: rgba(255,255,255,0.9);">Direct</div>
+                </div>
+                <div class="traffic-source" style="background: var(--light-green); color: white;">
+                    <div class="traffic-percentage">12.0%</div>
+                    <div class="traffic-name" style="color: rgba(255,255,255,0.9);">Email</div>
+                </div>
+                <div class="traffic-source" style="background: var(--mint); color: var(--dark-brown);">
+                    <div class="traffic-percentage">7.7%</div>
+                    <div class="traffic-name">Social Media</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conversion Funnel -->
+        <div class="section-divider">
+            <h2>Conversion Funnel</h2>
+            <p>Customer journey from visitor to customer</p>
+        </div>
+
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h2 class="card-title">7-Stage Conversion Funnel</h2>
+                <span class="card-badge">This Month</span>
+            </div>
+            <div style="padding: 1rem 0;">
+                <div class="funnel-stage">
+                    <div class="funnel-header">
+                        <span class="funnel-label">Website Visitors</span>
+                        <span class="funnel-percentage">100% • 112,050</span>
+                    </div>
+                    <div class="funnel-bar-container" style="height: 50px;">
+                        <div class="funnel-bar" style="width: 100%; background: var(--gradient); font-size: 1rem;"></div>
+                    </div>
+                </div>
+                <div class="funnel-stage">
+                    <div class="funnel-header">
+                        <span class="funnel-label">Product Page Views</span>
+                        <span class="funnel-percentage">41.0% • 45,943</span>
+                    </div>
+                    <div class="funnel-bar-container" style="height: 50px;">
+                        <div class="funnel-bar" style="width: 41%; background: var(--gradient); font-size: 1rem;"></div>
+                    </div>
+                </div>
+                <div class="funnel-stage">
+                    <div class="funnel-header">
+                        <span class="funnel-label">Demo Request Started</span>
+                        <span class="funnel-percentage">16.4% • 18,409</span>
+                    </div>
+                    <div class="funnel-bar-container" style="height: 50px;">
+                        <div class="funnel-bar" style="width: 16.4%; background: var(--gradient); font-size: 1rem;"></div>
+                    </div>
+                </div>
+                <div class="funnel-stage">
+                    <div class="funnel-header">
+                        <span class="funnel-label">Demo Request Submitted</span>
+                        <span class="funnel-percentage">11.0% • 12,304</span>
+                    </div>
+                    <div class="funnel-bar-container" style="height: 50px;">
+                        <div class="funnel-bar" style="width: 11%; background: var(--gradient); font-size: 1rem; justify-content: center;"></div>
+                    </div>
+                </div>
+                <div class="funnel-stage">
+                    <div class="funnel-header">
+                        <span class="funnel-label">Demo Completed</span>
+                        <span class="funnel-percentage">5.3% • 5,898</span>
+                    </div>
+                    <div class="funnel-bar-container" style="height: 50px;">
+                        <div class="funnel-bar" style="width: 5.3%; background: var(--gradient); font-size: 1rem; justify-content: center;"></div>
+                    </div>
+                </div>
+                <div class="funnel-stage">
+                    <div class="funnel-header">
+                        <span class="funnel-label">Trial Started</span>
+                        <span class="funnel-percentage">2.6% • 2,951</span>
+                    </div>
+                    <div class="funnel-bar-container" style="height: 50px;">
+                        <div class="funnel-bar" style="width: 2.6%; background: var(--gradient); font-size: 0.9rem; justify-content: center; min-width: 60px;"></div>
+                    </div>
+                </div>
+                <div class="funnel-stage">
+                    <div class="funnel-header">
+                        <span class="funnel-label">Paid Customer</span>
+                        <span class="funnel-percentage">1.05% • 1,180</span>
+                    </div>
+                    <div class="funnel-bar-container" style="height: 50px;">
+                        <div class="funnel-bar" style="width: 1.05%; background: var(--gradient); font-size: 0.9rem; justify-content: center; min-width: 60px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Regional Performance -->
+        <div class="section-divider">
+            <h2>Regional Performance</h2>
+            <p>Geographic breakdown of leads and revenue</p>
+        </div>
+
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h2 class="card-title">Regional Breakdown</h2>
+                <span class="card-badge">Q4 2024</span>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Region</th>
+                        <th>Leads</th>
+                        <th>Revenue</th>
+                        <th>Growth</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Asia Pacific</strong></td>
+                        <td>4,123</td>
+                        <td>$1,185,900</td>
+                        <td style="color: var(--primary-green); font-weight: 700;">↑ 18.3%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>North America</strong></td>
+                        <td>3,245</td>
+                        <td>$982,800</td>
+                        <td style="color: var(--primary-green); font-weight: 700;">↑ 12.4%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Europe</strong></td>
+                        <td>2,890</td>
+                        <td>$751,400</td>
+                        <td style="color: var(--primary-green); font-weight: 700;">↑ 8.7%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Latin America</strong></td>
+                        <td>1,456</td>
+                        <td>$320,120</td>
+                        <td style="color: var(--primary-green); font-weight: 700;">↑ 15.2%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Weekly Traffic Bars -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h2 class="card-title">Weekly Traffic Growth</h2>
+                <span class="card-badge">Last 4 Weeks</span>
+            </div>
+            <div style="display: flex; align-items: flex-end; justify-content: space-around; height: 250px; gap: 2rem; padding: 2rem 1rem; background: var(--light-beige); border-radius: 12px;">
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%;">
+                    <div style="width: 100%; background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%); border-radius: 8px 8px 0 0; height: 70%; display: flex; align-items: flex-start; justify-content: center; padding-top: 0.5rem;">
+                        <span style="color: white; font-weight: 700; font-size: 1.1rem;">24.6K</span>
+                    </div>
+                    <div style="margin-top: 0.8rem; font-size: 0.9rem; color: var(--gray); font-weight: 600;">Week 1</div>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%;">
+                    <div style="width: 100%; background: linear-gradient(135deg, #ec4899 0%, #f59e0b 100%); border-radius: 8px 8px 0 0; height: 80%; display: flex; align-items: flex-start; justify-content: center; padding-top: 0.5rem;">
+                        <span style="color: white; font-weight: 700; font-size: 1.1rem;">26.8K</span>
+                    </div>
+                    <div style="margin-top: 0.8rem; font-size: 0.9rem; color: var(--gray); font-weight: 600;">Week 2</div>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%;">
+                    <div style="width: 100%; background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%); border-radius: 8px 8px 0 0; height: 90%; display: flex; align-items: flex-start; justify-content: center; padding-top: 0.5rem;">
+                        <span style="color: white; font-weight: 700; font-size: 1.1rem;">29.1K</span>
+                    </div>
+                    <div style="margin-top: 0.8rem; font-size: 0.9rem; color: var(--gray); font-weight: 600;">Week 3</div>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%;">
+                    <div style="width: 100%; background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); border-radius: 8px 8px 0 0; height: 100%; display: flex; align-items: flex-start; justify-content: center; padding-top: 0.5rem;">
+                        <span style="color: white; font-weight: 700; font-size: 1.1rem;">31.5K</span>
+                    </div>
+                    <div style="margin-top: 0.8rem; font-size: 0.9rem; color: var(--gray); font-weight: 600;">Week 4</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Business Impact -->
+        <div class="section-divider">
+            <h2>Business Impact</h2>
+            <p>Key achievements and measurable outcomes</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+            <div class="dashboard-card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--primary-green); margin-bottom: 0.5rem;">2,778</div>
+                <div style="color: var(--gray);">Total conversions tracked</div>
+            </div>
+            <div class="dashboard-card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">💰</div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--primary-green); margin-bottom: 0.5rem;">641%</div>
+                <div style="color: var(--gray);">Average campaign ROI</div>
+            </div>
+            <div class="dashboard-card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🚀</div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--primary-green); margin-bottom: 0.5rem;">$864K</div>
+                <div style="color: var(--gray);">Revenue from campaigns</div>
+            </div>
+            <div class="dashboard-card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">📈</div>
+                <div style="font-size: 2rem; font-weight: 700; color: var(--primary-green); margin-bottom: 0.5rem;">28%</div>
+                <div style="color: var(--gray);">Traffic growth (4 weeks)</div>
+            </div>
+        </div>
+
+        <div class="footer-info">
+            Marketing Analytics Dashboard • Built by Naisargi Doshi • Data modeled from B2B tech industry benchmarks<br>
+            <small>Dataset based on HubSpot Marketing Reports, LinkedIn B2B Benchmarks, and Google Ads industry standards</small>
+        </div>
+    </div>
+</body>
+</html>
