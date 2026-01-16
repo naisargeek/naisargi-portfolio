@@ -87,7 +87,7 @@
             color: var(--primary-green);
         }
 
-        /* Hero Section - Unified Design */
+        /* Hero Section */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -385,83 +385,6 @@
             opacity: 0.9;
         }
 
-        /* Skills Section */
-        .skills {
-            padding: 6rem 2rem;
-            background: var(--cream);
-        }
-
-        .skills-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .skill-stack {
-            position: relative;
-            height: 250px;
-        }
-
-        .skill-card {
-            position: absolute;
-            width: 100%;
-            background: var(--white);
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 10px 40px rgba(45, 95, 63, 0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .skill-card:nth-child(1) {
-            transform: translateY(0px);
-            z-index: 3;
-            animation: floatSubtle 3s ease-in-out infinite;
-        }
-
-        .skill-card:nth-child(2) {
-            transform: translateY(10px);
-            z-index: 2;
-            opacity: 0.9;
-            animation: floatSubtle 3s ease-in-out infinite 0.5s;
-        }
-
-        .skill-card:nth-child(3) {
-            transform: translateY(20px);
-            z-index: 1;
-            opacity: 0.8;
-            animation: floatSubtle 3s ease-in-out infinite 1s;
-        }
-
-        .skill-stack:hover .skill-card:nth-child(1) {
-            transform: translateY(-20px);
-        }
-
-        .skill-stack:hover .skill-card:nth-child(2) {
-            transform: translateY(0px);
-        }
-
-        .skill-stack:hover .skill-card:nth-child(3) {
-            transform: translateY(20px);
-        }
-
-        .skill-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--gradient);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-        }
-
-        .skill-list {
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-
         /* Dashboard Showcase Section */
         .dashboards {
             padding: 6rem 2rem;
@@ -492,6 +415,7 @@
         .dashboard-card:nth-child(2) { animation-delay: 0.5s; }
         .dashboard-card:nth-child(3) { animation-delay: 1s; }
         .dashboard-card:nth-child(4) { animation-delay: 1.5s; }
+        .dashboard-card:nth-child(5) { animation-delay: 2s; }
 
         .dashboard-card:hover {
             transform: translateY(-10px);
@@ -550,6 +474,7 @@
             display: flex;
             gap: 0.5rem;
             margin-bottom: 1rem;
+            flex-wrap: wrap;
         }
 
         .tech-badge {
@@ -571,224 +496,6 @@
             color: var(--primary-green);
             font-weight: 600;
             margin-top: 1rem;
-        }
-
-        /* Experience Timeline */
-        .experience {
-            padding: 6rem 2rem;
-            background: var(--cream);
-        }
-
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-            margin-top: 3rem;
-        }
-
-        .timeline-line {
-            position: absolute;
-            left: 50px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--mint);
-        }
-
-        .timeline-item {
-            position: relative;
-            padding-left: 90px;
-            margin-bottom: 3rem;
-        }
-
-        .timeline-dot {
-            position: absolute;
-            left: 41px;
-            top: 0;
-            width: 20px;
-            height: 20px;
-            background: var(--primary-green);
-            border-radius: 50%;
-            border: 4px solid var(--cream);
-            box-shadow: 0 0 0 2px var(--mint);
-        }
-
-        .timeline-content {
-            background: var(--white);
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(45, 95, 63, 0.1);
-        }
-
-        .timeline-date {
-            color: var(--primary-green);
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-title {
-            font-size: 1.3rem;
-            color: var(--dark-brown);
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-company {
-            color: var(--gray);
-            margin-bottom: 1rem;
-        }
-
-        .timeline-highlight {
-            background: var(--beige);
-            padding: 1rem;
-            border-radius: 10px;
-            margin-top: 1rem;
-        }
-
-        /* Projects Section - Academic Focus */
-        .projects {
-            padding: 6rem 2rem;
-            background: var(--beige-gradient);
-            position: relative;
-        }
-
-        .projects::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--mint) 0%, var(--sage-green) 50%, var(--primary-green) 100%);
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 3rem;
-            margin-top: 3rem;
-            justify-items: center;
-        }
-
-        .project-card {
-            background: var(--white);
-            border-radius: 25px;
-            padding: 3rem;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            animation: float 6s ease-in-out infinite;
-            border: 2px solid var(--mint);
-            box-shadow: 0 15px 50px rgba(45, 95, 63, 0.1);
-            width: 100%;
-            max-width: 500px;
-        }
-
-        .project-card:nth-child(1) { animation-delay: 0s; }
-        .project-card:nth-child(2) { animation-delay: 1s; }
-
-        .project-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 25px 80px rgba(45, 95, 63, 0.2);
-            border-color: var(--primary-green);
-        }
-
-        .project-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--mint) 0%, var(--sage-green) 100%);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 2rem;
-            font-size: 2rem;
-            color: var(--white);
-            box-shadow: 0 10px 30px rgba(45, 95, 63, 0.2);
-        }
-
-        .project-title {
-            font-size: 1.6rem;
-            color: var(--dark-brown);
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .project-description {
-            color: var(--gray);
-            margin-bottom: 2rem;
-            line-height: 1.7;
-            font-size: 1.05rem;
-        }
-
-        .project-results {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .result {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--primary-green);
-            font-weight: 700;
-            background: var(--beige);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-size: 0.9rem;
-        }
-
-        /* Education Section */
-        .education {
-            padding: 6rem 2rem;
-            background: var(--cream);
-        }
-
-        .education-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-            justify-items: center;
-        }
-
-        .edu-card {
-            background: linear-gradient(135deg, var(--mint) 0%, var(--sage-green) 100%);
-            color: var(--white);
-            padding: 2.5rem;
-            border-radius: 20px;
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-            max-width: 500px;
-        }
-
-        .edu-card::after {
-            content: '';
-            position: absolute;
-            right: 20px;
-            bottom: 20px;
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
-            border-radius: 50%;
-        }
-
-        .edu-degree {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .edu-school {
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            opacity: 0.95;
-        }
-
-        .edu-date {
-            font-size: 0.9rem;
-            opacity: 0.9;
         }
 
         /* Contact Section */
@@ -875,34 +582,8 @@
                 padding-top: 100px;
             }
 
-            .hero-container {
-                padding: 2rem 1rem;
-            }
-
             .hero-title {
                 font-size: 2.5rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1.2rem;
-            }
-
-            .hero-description {
-                font-size: 1rem;
-            }
-
-            .hero-cta {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .btn {
-                width: 250px;
-                justify-content: center;
-            }
-
-            .tech-stack-container {
-                padding: 2rem;
             }
 
             .skills-grid {
@@ -918,31 +599,12 @@
                 gap: 2rem;
             }
 
-            .skills-container {
-                grid-template-columns: 1fr;
-            }
-
             .dashboard-gallery {
-                grid-template-columns: 1fr;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .education-cards {
                 grid-template-columns: 1fr;
             }
 
             .contact-links {
                 flex-direction: column;
-                align-items: center;
-            }
-
-            .contact-link {
-                width: 100%;
-                max-width: 300px;
-                justify-content: center;
             }
         }
     </style>
@@ -954,8 +616,6 @@
             <a href="#home" class="nav-link active">Home</a>
             <a href="#about" class="nav-link">About</a>
             <a href="#dashboards" class="nav-link">Dashboards</a>
-            <a href="#experience" class="nav-link">Experience</a>
-            <a href="#projects" class="nav-link">Projects</a>
             <a href="#contact" class="nav-link">Contact</a>
         </div>
     </nav>
@@ -1070,6 +730,33 @@
                 <h2 class="section-title">Dashboards That Tell Stories</h2>
             </div>
             <div class="dashboard-gallery">
+                <a href="asset-lifecycle-platform.html" style="text-decoration: none; color: inherit;">
+                    <div class="dashboard-card">
+                        <div class="dashboard-preview">
+                            <div class="dashboard-charts">
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                                <div class="chart-bar"></div>
+                            </div>
+                        </div>
+                        <div class="dashboard-info">
+                            <h3 class="dashboard-title">Asset Lifecycle Intelligence Platform</h3>
+                            <div class="dashboard-tech">
+                                <span class="tech-badge">Asset Tracking</span>
+                                <span class="tech-badge">RFI Management</span>
+                                <span class="tech-badge">Lifecycle Analytics</span>
+                            </div>
+                            <p class="dashboard-impact">
+                                Comprehensive asset intelligence from design through operations. Tracks 124 assets across lifecycle phases with RFI traceability and operational handoff scoring.
+                            </p>
+                            <span class="dashboard-metric">
+                                87% operational readiness
+                            </span>
+                        </div>
+                    </div>
+                </a>
                 <a href="supply-chain-logistics-dashboard.html" style="text-decoration: none; color: inherit;">
                     <div class="dashboard-card">
                         <div class="dashboard-preview">
@@ -1186,129 +873,6 @@
         </div>
     </section>
 
-    <!-- Experience Timeline -->
-    <section class="experience" id="experience">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">Career Journey</span>
-                <h2 class="section-title">Where I've Made Impact</h2>
-            </div>
-            <div class="timeline">
-                <div class="timeline-line"></div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">August 2025 – Present</div>
-                        <h3 class="timeline-title">AI Apprentice Engineer</h3>
-                        <div class="timeline-company">Aperix LLC • Raleigh, NC</div>
-                        <div class="timeline-highlight">
-                            Bridging business needs with AI development - teaching machines to think like analysts
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">August 2024 – December 2024</div>
-                        <h3 class="timeline-title">Business Analyst Intern</h3>
-                        <div class="timeline-company">Volvo Group • Raleigh, NC</div>
-                        <div class="timeline-highlight">
-                            Saved $500K through anomaly detection • Made reports 96% faster
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">March 2024 – December 2024</div>
-                        <h3 class="timeline-title">Business Analyst</h3>
-                        <div class="timeline-company">Consult Your Community NC • Raleigh, NC</div>
-                        <div class="timeline-highlight">
-                            Boosted sales tracking by 35% • Built executive dashboards that actually get used
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">January 2021 - August 2023</div>
-                        <h3 class="timeline-title">Business Analyst</h3>
-                        <div class="timeline-company">Urban Platter • Mumbai, India</div>
-                        <div class="timeline-highlight">
-                            2.5% profit growth • 5% market share capture • Conquered 3 new markets
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section class="projects" id="projects">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">Academic Excellence</span>
-                <h2 class="section-title">Projects That Matter</h2>
-            </div>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-icon">🌍</div>
-                    <h3 class="project-title">Internationally, Yours</h3>
-                    <p class="project-description">
-                        Built a platform for international students with a $200K revenue potential. 
-                        Because navigating a new country shouldn't feel like solving a Rubik's cube blindfolded.
-                    </p>
-                    <div class="project-results">
-                        <span class="result">
-                            💰 $200K Revenue
-                        </span>
-                        <span class="result">
-                            ✅ Under Budget
-                        </span>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-icon">🏗️</div>
-                    <h3 class="project-title">Lighthouse Relocation</h3>
-                    <p class="project-description">
-                        Managed a $12M infrastructure project analysis that found 15% cost savings. 
-                        Turns out, you can teach an old lighthouse new tricks!
-                    </p>
-                    <div class="project-results">
-                        <span class="result">
-                            📉 15% Savings
-                        </span>
-                        <span class="result">
-                            ⚡ 25% Faster
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Education Section -->
-    <section class="education" id="education">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">Academic Background</span>
-                <h2 class="section-title">Where I Learned to Love Data</h2>
-            </div>
-            <div class="education-cards">
-                <div class="edu-card">
-                    <div class="edu-degree">Masters in Engineering Management</div>
-                    <div class="edu-school">North Carolina State University</div>
-                    <div class="edu-date">August 2023 - May 2025 (Graduated)</div>
-                </div>
-                <div class="edu-card">
-                    <div class="edu-degree">B.Tech in Electronics Engineering</div>
-                    <div class="edu-school">Mumbai University</div>
-                    <div class="edu-date">August 2019 - June 2023</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Contact Section -->
     <section class="contact" id="contact">
         <div class="contact-content">
@@ -1317,8 +881,8 @@
                 Ready to turn your data chaos into clarity? I'm just a message away!
             </p>
             <div class="contact-links">
-                <a href="/cdn-cgi/l/email-protection#9ff1fef6ecfeedf8f6fbf0ecf7f6aea9dff8f2fef6f3b1fcf0f2" class="contact-link">
-                    📧 <span class="__cf_email__" data-cfemail="e38d828a908291848a878c908b8ad2d5a3848e828a8fcd808c8e">[email&#160;protected]</span>
+                <a href="mailto:[email protected]" class="contact-link">
+                    📧 [email protected]
                 </a>
                 <a href="tel:+19193456638" class="contact-link">
                     📞 +1 (919) 345-6638
@@ -1338,7 +902,7 @@
         <p>&copy; 2025 Naisargi Doshi • Turning Data Into Decisions • Open to Relocate</p>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1373,15 +937,6 @@
                 }
             });
         });
-
-        // Intersection Observer for animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('section').f
+    </script>
+</body>
+</html>
