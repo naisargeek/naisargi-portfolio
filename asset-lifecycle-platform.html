@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Lifecycle Intelligence Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2d5f3f;
+            --light-green: #4a8060;
+            --sage-green: #87a96b;
+            --mint: #a8d5ba;
+            --beige: #f5e6d3;
+            --light-beige: #faf6f0;
+            --cream: #fffef9;
+            --dark-brown: #3e2723;
+            --gray: #6b6b6b;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, #2d5f3f 0%, #87a96b 100%);
+            --blue-accent: #4a90e2;
+            --orange-accent: #ff9f40;
+            --purple-accent: #8b5cf6;
+            --pink-accent: #ec4899;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--cream);
+            color: var(--dark-brown);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .nav-header {
+            background: var(--white);
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-5px);
+        }
+
+        .dashboard-title-nav {
+            font-size: 1.2rem;
+            color: var(--dark-brown);
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .dashboard-hero {
+            background: var(--gradient);
+            padding: 4rem 2rem;
+            color: var(--white);
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .dashboard-main-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .dashboard-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+        }
+
+        .key-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .metric-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideUp 0.6s ease;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        .dashboard-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .dashboard-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--beige);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: var(--dark-brown);
+            font-weight: 600;
+        }
+
+        .card-badge {
+            background: var(--mint);
+            color: var(--primary-green);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Asset Table */
+        .asset-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .asset-table th {
+            background: var(--light-beige);
+            color: var(--dark-brown);
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .asset-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--beige);
+            color: var(--gray);
+        }
+
+        .asset-table tr:hover {
+            background: var(--cream);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-live {
+            background: #efe;
+            color: #080;
+        }
+
+        .status-installed {
+            background: #e6f2ff;
+            color: #1e40af;
+        }
+
+        .status-design {
+            background: #fef6e6;
+            color: #f59e0b;
+        }
+
+        .status-maintenance {
+            background: #fee;
+            color: #d00;
+        }
+
+        /* Category Distribution */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .category-item {
+            background: var(--cream);
+            padding: 1.5rem;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+        }
+
+        .category-item:nth-child(1)::before { background: var(--blue-accent); }
+        .category-item:nth-child(2)::before { background: var(--orange-accent); }
+        .category-item:nth-child(3)::before { background: var(--purple-accent); }
+        .category-item:nth-child(4)::before { background: var(--pink-accent); }
+
+        .category-name {
+            font-weight: 600;
+            color: var(--dark-brown);
+            margin-bottom: 0.5rem;
+        }
+
+        .category-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .category-percentage {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        /* RFI Items */
+        .rfi-container {
+            padding: 1rem;
+        }
+
+        .rfi-step {
+            background: var(--cream);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            position: relative;
+            border-left: 4px solid var(--primary-green);
+        }
+
+        .rfi-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .rfi-id {
+            font-weight: 700;
+            color: var(--primary-green);
+            font-size: 1.1rem;
+        }
+
+        .rfi-title {
+            font-weight: 600;
+            color: var(--dark-brown);
+            margin-bottom: 0.5rem;
+        }
+
+        .rfi-description {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .detail-box {
+            background: var(--light-beige);
+            padding: 0.75rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .detail-label {
+            font-size: 0.75rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark-brown);
+        }
+
+        .impact-box {
+            background: rgba(168, 213, 186, 0.2);
+            border-left: 3px solid var(--primary-green);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .impact-label {
+            font-size: 0.75rem;
+            color: var(--primary-green);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .impact-text {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Progress Section */
+        .progress-section {
+            padding: 1rem;
+        }
+
+        .progress-item {
+            margin-bottom: 1rem;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--dark-brown);
+        }
+
+        .progress-value {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--beige);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .tech-tag {
+            background: var(--beige);
+            color: var(--primary-green);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Impact Section */
+        .impact-section {
+            background: var(--light-beige);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-top: 3rem;
+        }
+
+        .impact-title {
+            font-size: 2rem;
+            color: var(--dark-brown);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .impact-item {
+            text-align: center;
+        }
+
+        .impact-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .impact-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .impact-description {
+            color: var(--gray);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-main-title {
+                font-size: 2rem;
+            }
+
+            .metric-box {
+                padding: 1rem;
+            }
+
+            .metric-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-header">
+        <div class="nav-content">
+            <a href="#" class="back-btn">
+                ← Back to Portfolio
+            </a>
+            <div class="dashboard-title-nav">Asset Lifecycle Intelligence Platform</div>
+            <div style="width: 120px;"></div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="dashboard-hero">
+        <div class="hero-content">
+            <h1 class="dashboard-main-title">Asset Lifecycle Intelligence Platform</h1>
+            <p class="dashboard-subtitle">Continuity of intelligence from design through operations</p>
+            
+            <div class="key-metrics">
+                <div class="metric-box">
+                    <div class="metric-value">124</div>
+                    <div class="metric-label">Total Assets Tracked</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-value">18</div>
+                    <div class="metric-label">Active RFIs</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-value">7</div>
+                    <div class="metric-label">Change Orders</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-value">87%</div>
+                    <div class="metric-label">Avg Readiness Score</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-value">96</div>
+                    <div class="metric-label">Assets Ready for Handoff</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="dashboard-content">
+        <!-- Dashboard Visualizations -->
+        <div class="dashboard-grid">
+            <!-- Asset Registry Table -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Asset Registry</h2>
+                    <span class="card-badge">Live Data</span>
+                </div>
+                
+                <table class="asset-table">
+                    <thead>
+                        <tr>
+                            <th>Asset ID</th>
+                            <th>Type</th>
+                            <th>System</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>AST-SEC-CAM-001</strong></td>
+                            <td>IP Security Camera</td>
+                            <td>Security</td>
+                            <td><span class="status-badge status-live">Live</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AST-ELEC-PNL-042</strong></td>
+                            <td>Electrical Panel</td>
+                            <td>Electrical</td>
+                            <td><span class="status-badge status-installed">Installed</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AST-IT-SW-018</strong></td>
+                            <td>Network Switch</td>
+                            <td>IT Infrastructure</td>
+                            <td><span class="status-badge status-live">Live</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AST-SEC-RDR-205</strong></td>
+                            <td>Access Reader</td>
+                            <td>Security</td>
+                            <td><span class="status-badge status-design">Design</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AST-HVAC-AHU-012</strong></td>
+                            <td>Air Handling Unit</td>
+                            <td>HVAC</td>
+                            <td><span class="status-badge status-maintenance">Maintenance</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- System Distribution -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Assets by System</h2>
+                    <span class="card-badge">124 Total</span>
+                </div>
+                
+                <div class="category-grid">
+                    <div class="category-item">
+                        <div class="category-name">Security Systems</div>
+                        <div class="category-value">42</div>
+                        <div class="category-percentage">34% of total assets</div>
+                    </div>
+                    <div class="category-item">
+                        <div class="category-name">IT Infrastructure</div>
+                        <div class="category-value">35</div>
+                        <div class="category-percentage">28% of total assets</div>
+                    </div>
+                    <div class="category-item">
+                        <div class="category-name">Electrical Systems</div>
+                        <div class="category-value">28</div>
+                        <div class="category-percentage">23% of total assets</div>
+                    </div>
+                    <div class="category-item">
+                        <div class="category-name">HVAC & Mechanical</div>
+                        <div class="category-value">19</div>
+                        <div class="category-percentage">15% of total assets</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RFI Traceability -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">RFI Traceability</h2>
+                    <span class="card-badge">18 Active</span>
+                </div>
+                
+                <div class="rfi-container">
+                    <div class="rfi-step">
+                        <div class="rfi-header-row">
+                            <span class="rfi-id">RFI-012</span>
+                            <span class="status-badge status-live">Low Risk</span>
+                        </div>
+                        <div class="rfi-title">Camera Mounting Height Clarification</div>
+                        <div class="rfi-description">Requested adjustment to mounting height for optimal coverage in high-ceiling areas.</div>
+                        
+                        <div class="detail-grid">
+                            <div class="detail-box">
+                                <div class="detail-label">Submitted</div>
+                                <div class="detail-value">Nov 8</div>
+                            </div>
+                            <div class="detail-box">
+                                <div class="detail-label">Status</div>
+                                <div class="detail-value">Review</div>
+                            </div>
+                            <div class="detail-box">
+                                <div class="detail-label">Assets</div>
+                                <div class="detail-value">18</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rfi-step" style="border-left-color: #ff9f40;">
+                        <div class="rfi-header-row">
+                            <span class="rfi-id">RFI-025</span>
+                            <span class="status-badge status-design">Medium Risk</span>
+                        </div>
+                        <div class="rfi-title">Network Switch VLAN Configuration</div>
+                        <div class="rfi-description">Clarification needed on VLAN configuration to support security camera integration.</div>
+                        
+                        <div class="detail-grid">
+                            <div class="detail-box">
+                                <div class="detail-label">Submitted</div>
+                                <div class="detail-value">Dec 15</div>
+                            </div>
+                            <div class="detail-box">
+                                <div class="detail-label">Status</div>
+                                <div class="detail-value">Responded</div>
+                            </div>
+                            <div class="detail-box">
+                                <div class="detail-label">Assets</div>
+                                <div class="detail-value">5</div>
+                            </div>
+                        </div>
+
+                        <div class="impact-box">
+                            <div class="impact-label">Lifecycle Impact</div>
+                            <div class="impact-text">Requires network documentation update for operations team. Affects maintenance procedures for camera systems.</div>
+                        </div>
+                    </div>
+
+                    <div class="rfi-step" style="border-left-color: #d00;">
+                        <div class="rfi-header-row">
+                            <span class="rfi-id">RFI-031</span>
+                            <span class="status-badge status-maintenance">High Risk</span>
+                        </div>
+                        <div class="rfi-title">Electrical Panel Load Verification</div>
+                        <div class="rfi-description">Load calculations show potential capacity issues with planned equipment additions.</div>
+                        
+                        <div class="detail-grid">
+                            <div class="detail-box">
+                                <div class="detail-label">Submitted</div>
+                                <div class="detail-value">Jan 3</div>
+                            </div>
+                            <div class="detail-box">
+                                <div class="detail-label">Status</div>
+                                <div class="detail-value">Critical</div>
+                            </div>
+                            <div class="detail-box">
+                                <div class="detail-label">Assets</div>
+                                <div class="detail-value">12</div>
+                            </div>
+                        </div>
+
+                        <div class="impact-box" style="background: rgba(221, 0, 0, 0.1); border-left-color: #d00;">
+                            <div class="impact-label" style="color: #d00;">⚠️ Critical Lifecycle Impact</div>
+                            <div class="impact-text">May require panel upgrade or load redistribution. Critical for energy management and future expansion.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Change Orders -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Change Orders</h2>
+                    <span class="card-badge">7 Active</span>
+                </div>
+                
+                <div class="rfi-container">
+                    <div class="rfi-step">
+                        <div class="rfi-header-row">
+                            <span class="rfi-id">CO-008</span>
+                            <span class="status-badge status-design">Medium Impact</span>
+                        </div>
+                        <div class="rfi-title">Additional Access Control Readers - Building C</div>
+                        <div class="rfi-description">Add 4 additional card readers to meet revised security requirements.</div>
+                        
+                        <div class="detail-grid">
+                            <div class="detail-box">
+                                <div class="detail-label">Cost</div>
+                                <div class="detail-value">+$18.4K</div>
+                            </div>
+                            <div class="detail-box">
+                                <div class="detail-label">Schedule</div>
+                                <div class="detail-value">+2 weeks</div>
+                            </div>
+                            <div class="detail-box">
+                                <div class="detail-label">Assets</div>
+                                <div class="detail-value">4 new</div>
+                            </div>
+                        </div>
+
+                        <div class="impact-box">
+                            <div class="impact-label">Ops Impact</div>
+                            <div class="impact-text">Requires updates to access control system configuration and staff training on new entry points.</div>
+                        </div>
+                    </div>
+
+                    <div class="rfi-step" style="border-left-color: #d00;">
+                        <div class="rfi-header-row">
+                            <span class="rfi-id">CO-011</span>
+                            <span class="status-badge status-maintenance">High Impact</span>
+                        </div>
+                        <div class="rfi-title">HVAC System Capacity Upgrade</div>
+                        <div class="rfi-description">Upgrade AHU capacity due to increased heat load from server equipment.</div>
+                        
+                        <div class="detail-grid">
+                            <div class="detail-box">
+                                <div class="detail-label">Cost</div>
+                                <div class="detail-value">+$145K</div>
+                            </div>
+                            <div class="detail-box">
+                                <div class="detail-label">Schedule</div>
+                                <div class="detail-value">+6 weeks</div>
+                            </div>
+                            <div class="detail-box">
+                                <div class="detail-label">Assets</div>
+                                <div class="detail-value">8 mod</div>
+                            </div>
+                        </div>
+
+                        <div class="impact-box" style="background: rgba(221, 0, 0, 0.1); border-left-color: #d00;">
+                            <div class="impact-label" style="color: #d00;">⚠️ High Ops Impact</div>
+                            <div class="impact-text">Significantly impacts energy consumption and operational costs. Critical for future data center expansion.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Operational Handoff -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Operational Handoff Readiness</h2>
+                    <span class="card-badge">87% Avg</span>
+                </div>
+                
+                <div class="progress-section">
+                    <div style="margin-bottom: 1.5rem;">
+                        <div class="rfi-header-row">
+                            <span class="rfi-id">AST-SEC-CAM-001</span>
+                            <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary-green);">100%</span>
+                        </div>
+                        <div style="font-size: 0.9rem; color: var(--gray); margin-bottom: 1rem;">IP Security Camera</div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-label">As-Built Documentation</span>
+                            <span class="progress-value">Complete</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-label">Asset Tagged & Commissioned</span>
+                            <span class="progress-value">Complete</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-label">O&M Manual</span>
+                            <span class="progress-value">Complete</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-label">Warranty Information</span>
+                            <span class="progress-value">Complete</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-label">Access Credentials</span>
+                            <span class="progress-value">Complete</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Asset Lifecycle Stages -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Lifecycle Stage Distribution</h2>
+                    <span class="card-badge">Current Status</span>
+                </div>
+                
+                <div class="category-grid">
+                    <div class="category-item">
+                        <div class="category-name">Live / Operating</div>
+                        <div class="category-value">68</div>
+                        <div class="category-percentage">55% fully operational</div>
+                    </div>
+                    <div class="category-item">
+                        <div class="category-name">Installed / Commissioning</div>
+                        <div class="category-value">28</div>
+                        <div class="category-percentage">23% pending commission</div>
+                    </div>
+                    <div class="category-item">
+                        <div class="category-name">Design Phase</div>
+                        <div class="category-value">18</div>
+                        <div class="category-percentage">14% in design/approval</div>
+                    </div>
+                    <div class="category-item">
+                        <div class="category-name">Maintenance</div>
+                        <div class="category-value">10</div>
+                        <div class="category-percentage">8% under maintenance</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tech Stack -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h2 class="card-title">Technology & Architecture</h2>
+            </div>
+            <div class="tech-stack">
+                <span class="tech-tag">Asset-Centric Data Model</span>
+                <span class="tech-tag">RFI → Asset Mapping</span>
+                <span class="tech-tag">Change Order Tracking</span>
+                <span class="tech-tag">Operational Readiness Scoring</span>
+                <span class="tech-tag">System-of-Systems Integration</span>
+                <span class="tech-tag">Lifecycle Traceability</span>
+                <span class="tech-tag">As-Built Documentation</span>
+                <span class="tech-tag">Real-time Handoff Dashboard</span>
+            </div>
+        </div>
+
+        <!-- Impact Section -->
+        <div class="impact-section">
+            <h2 class="impact-title">Platform Impact</h2>
+            <div class="impact-grid">
+                <div class="impact-item">
+                    <div class="impact-icon">🏗️</div>
+                    <div class="impact-value">124</div>
+                    <div class="impact-description">Assets tracked across full lifecycle</div>
+                </div>
+                <div class="impact-item">
+                    <div class="impact-icon">🔍</div>
+                    <div class="impact-value">18</div>
+                    <div class="impact-description">RFIs traced to affected assets</div>
+                </div>
+                <div class="impact-item">
+                    <div class="impact-icon">📝</div>
+                    <div class="impact-value">7</div>
+                    <div class="impact-description">Change orders with lifecycle impact</div>
+                </div>
+                <div class="impact-item">
+                    <div class="impact-icon">✅</div>
+                    <div class="impact-value">87%</div>
+                    <div class="impact-description">Average operational readiness score</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animate progress bars on load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelectorAll('.progress-fill').forEach(bar => {
+                    const width = bar.style.width;
+                    bar.style.width = '0';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
+                });
+            }, 300);
+        });
+    </script>
+</body>
+</html>
